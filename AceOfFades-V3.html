@@ -1,0 +1,1991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ace of Fades — Premium Barbershop | Malaysia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+/* ============================================================
+   LIGHT THEME VARIABLES
+   ============================================================ */
+:root {
+  /* Gold palette */
+  --gold: #A8864A;
+  --gold-bright: #C8A97E;
+  --gold-dark: #7A5F2A;
+  --gold-light: #E8D5B0;
+  --gold-pale: #F8F0E0;
+  --gold-glow: rgba(168,134,74,0.2);
+
+  /* Light surfaces */
+  --bg: #FAFAF7;
+  --bg-alt: #F4EFE6;
+  --bg-cream: #EDE7DA;
+  --card: #FFFFFF;
+  --card-hover: #FFFCF7;
+  --border: rgba(168,134,74,0.12);
+  --border-strong: rgba(168,134,74,0.25);
+
+  /* Typography */
+  --ink: #1C1208;
+  --ink-secondary: #2A2015;
+  --ink-muted: #3A2E1C;
+  --ink-faint: #6A5840;
+
+  /* Dark footer */
+  --footer-bg: #1A1208;
+  --footer-border: rgba(200,169,126,0.08);
+
+  /* Other */
+  --green: #2D6A4F;
+  --green-bg: #D8F3DC;
+  --container: 1100px;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --ease: cubic-bezier(0.22,1,0.36,1);
+  --shadow-sm: 0 2px 12px rgba(26,18,8,0.07);
+  --shadow-md: 0 8px 32px rgba(26,18,8,0.1);
+  --shadow-lg: 0 20px 60px rgba(26,18,8,0.12);
+  --shadow-gold: 0 8px 32px rgba(168,134,74,0.2);
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:122px;font-size:15px}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--gold-bright);border-radius:5px}
+body{font-family:var(--font-body);color:var(--ink);background:var(--bg);line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+ul{list-style:none}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.container{max-width:var(--container);margin:0 auto;padding:0 1.5rem}
+.section{padding:clamp(3.5rem,7vw,5.5rem) 0;position:relative}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-size:0.66rem;font-weight:700;letter-spacing:0.25em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;
+}
+.eyebrow::before{content:'';width:22px;height:1.5px;background:var(--gold);flex-shrink:0}
+.section-title{
+  font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.7rem);
+  font-weight:700;line-height:1.12;color:var(--ink);margin-bottom:0.7rem;
+}
+.section-sub{font-size:0.9rem;color:var(--ink-muted);max-width:500px;line-height:1.8;font-weight:400}
+.gold-text{color:var(--gold)}
+.gold-line{width:40px;height:1.5px;background:linear-gradient(90deg,var(--gold),transparent);margin:0.9rem 0}
+
+/* Decorative scissors divider */
+.scissors-divider{
+  display:flex;align-items:center;gap:1rem;margin:0 auto;
+  max-width:220px;opacity:0.35;
+}
+.scissors-divider::before,.scissors-divider::after{
+  content:'';flex:1;height:1px;background:var(--gold);
+}
+.scissors-divider i{color:var(--gold);font-size:0.8rem;flex-shrink:0}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  padding:0.7rem 1.8rem;border-radius:50px;font-family:var(--font-body);
+  font-size:0.76rem;font-weight:600;letter-spacing:0.07em;
+  cursor:pointer;border:none;transition:all 0.35s var(--ease);text-transform:uppercase;
+}
+.btn-gold{
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:#fff;box-shadow:0 4px 20px var(--gold-glow);
+}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(168,134,74,0.35)}
+.btn-outline{
+  background:transparent;color:var(--gold);
+  border:1.5px solid rgba(168,134,74,0.4);
+}
+.btn-outline:hover{background:var(--gold-pale);border-color:var(--gold);transform:translateY(-2px)}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:var(--ink-secondary);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+
+/* Badge pill */
+.pill{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  padding:0.28rem 0.8rem;border-radius:50px;font-size:0.65rem;
+  font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+}
+.pill-green{background:var(--green-bg);color:var(--green);border:1px solid rgba(45,106,79,0.2)}
+.pill-gold{background:var(--gold-pale);color:var(--gold);border:1px solid var(--border-strong)}
+
+.gs{visibility:hidden}
+
+/* ============================================================
+   CURSOR
+   ============================================================ */
+.cursor-glow{
+  position:fixed;width:280px;height:280px;border-radius:50%;
+  background:radial-gradient(circle,rgba(168,134,74,0.06) 0%,transparent 70%);
+  pointer-events:none;z-index:9999;transform:translate(-50%,-50%);
+}
+
+/* ============================================================
+   LOADER
+   ============================================================ */
+.loader{
+  position:fixed;inset:0;z-index:10000;background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity 0.5s var(--ease),visibility 0.5s;
+}
+.loader.done{opacity:0;visibility:hidden}
+.loader img{width:58px;margin-bottom:1.4rem;animation:lPulse 1.2s ease-in-out infinite}
+@keyframes lPulse{0%,100%{opacity:0.4;transform:scale(0.95)}50%{opacity:1;transform:scale(1)}}
+.loader-bar{width:90px;height:2px;background:var(--bg-cream);border-radius:2px;overflow:hidden}
+.loader-bar span{display:block;width:0;height:100%;background:var(--gold);border-radius:2px;animation:lFill 1.3s var(--ease) forwards}
+@keyframes lFill{to{width:100%}}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:fixed;top:52px;left:0;width:100%;z-index:1000;
+  padding:0.85rem 0;transition:all 0.4s var(--ease);
+}
+.nav.scrolled{
+  background:rgba(250,250,247,0.97);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  padding:0.55rem 0;top:52px;
+  border-bottom:1px solid var(--border);
+  box-shadow:var(--shadow-sm);
+}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  max-width:var(--container);margin:0 auto;padding:0 1.5rem;
+}
+.nav-logo{display:flex;align-items:center;gap:0.55rem}
+.nav-logo img{height:36px;width:auto}
+.nav-logo span{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--gold);letter-spacing:0.03em}
+.nav-links{display:flex;align-items:center;gap:1.8rem}
+.nav-links a{
+  font-size:0.72rem;font-weight:600;letter-spacing:0.1em;
+  text-transform:uppercase;color:rgba(250,250,247,0.8);
+  position:relative;padding:0.2rem 0;transition:color 0.3s;
+}
+.nav.scrolled .nav-links a{color:var(--ink-muted)}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-2px;left:0;
+  width:0;height:1.5px;background:var(--gold);transition:width 0.3s var(--ease);
+}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a:hover::after{width:100%}
+.nav.scrolled .nav-links a:hover{color:var(--gold)}
+.nav-cta{
+  padding:0.52rem 1.4rem;border-radius:50px;font-size:0.7rem;
+  font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:#fff;transition:all 0.3s var(--ease);
+}
+.nav-cta:hover{box-shadow:var(--shadow-gold);transform:translateY(-1px)}
+.nav-toggle{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer;padding:4px}
+.nav-toggle span{display:block;width:22px;height:2px;background:var(--gold);border-radius:2px;transition:all 0.3s}
+.nav-toggle.active span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.nav-toggle.active span:nth-child(2){opacity:0}
+.nav-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+.nav-mobile{
+  display:none;position:fixed;top:0;left:0;width:100%;height:100vh;
+  background:rgba(250,250,247,0.98);backdrop-filter:blur(20px);
+  z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;
+}
+.nav-mobile.active{display:flex}
+.nav-mobile a{font-family:var(--font-display);font-size:1.4rem;color:var(--ink);transition:color 0.3s}
+.nav-mobile a:hover{color:var(--gold)}
+
+/* ============================================================
+   HERO — keep dark, has photo bg
+   ============================================================ */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;filter:brightness(0.32) saturate(0.85) contrast(1.1)}
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(125deg,rgba(15,10,3,0.9) 0%,rgba(15,10,3,0.45) 55%,rgba(15,10,3,0.7) 100%);
+}
+.hero-vignette{position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse at center,transparent 45%,rgba(10,7,2,0.55) 100%)}
+.hero-content{
+  position:relative;z-index:3;padding-top:90px;
+  max-width:var(--container);margin:0 auto;padding-left:1.5rem;padding-right:1.5rem;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  padding:0.38rem 0.95rem;border-radius:50px;
+  background:rgba(200,169,126,0.1);border:1px solid rgba(200,169,126,0.22);
+  font-size:0.65rem;font-weight:600;color:var(--gold-bright);
+  letter-spacing:0.18em;text-transform:uppercase;margin-bottom:1.4rem;
+}
+.hero-badge i{font-size:0.58rem}
+.hero-title{
+  font-family:var(--font-display);font-size:clamp(2.6rem,6.5vw,4.8rem);
+  font-weight:800;line-height:1.06;color:#fff;
+  margin-bottom:1.1rem;max-width:660px;
+}
+.hero-title .line{display:block;overflow:hidden}
+.hero-title .line-inner{display:block;transform:translateY(110%);animation:heroSlide 0.9s var(--ease) forwards}
+.hero-title .line:nth-child(2) .line-inner{animation-delay:0.12s}
+.hero-title .line:nth-child(3) .line-inner{animation-delay:0.24s}
+@keyframes heroSlide{to{transform:translateY(0)}}
+.hero-title em{font-style:italic;color:var(--gold-bright)}
+.hero-desc{
+  font-size:0.93rem;color:rgb(255, 255, 255);max-width:450px;
+  line-height:1.78;margin-bottom:2rem;font-weight:300;
+  opacity:0;animation:hFade 0.8s var(--ease) 0.5s forwards;
+}
+@keyframes hFade{to{opacity:1}}
+.hero-buttons{display:flex;gap:0.8rem;flex-wrap:wrap;opacity:0;animation:hFade 0.8s var(--ease) 0.7s forwards}
+.hero-scroll{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  z-index:3;display:flex;flex-direction:column;align-items:center;
+  gap:0.35rem;color:rgba(255,255,255,0.35);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;
+}
+.hero-scroll .mouse{width:17px;height:27px;border:1.5px solid rgba(200,169,126,0.4);border-radius:10px;position:relative}
+.hero-scroll .mouse::before{
+  content:'';position:absolute;top:4px;left:50%;transform:translateX(-50%);
+  width:2px;height:5px;background:var(--gold-bright);border-radius:2px;
+  animation:sDot 2s ease-in-out infinite;
+}
+@keyframes sDot{0%,100%{opacity:1;transform:translateX(-50%) translateY(0)}50%{opacity:0.2;transform:translateX(-50%) translateY(5px)}}
+
+/* Floating hero card */
+.hero-float{
+  position:absolute;z-index:3;padding:0.75rem 1rem;
+  background:rgba(15,10,3,0.75);backdrop-filter:blur(14px);
+  border:1px solid rgba(200,169,126,0.14);border-radius:12px;
+}
+.hero-float.reviews{bottom:13%;right:7%;display:flex;align-items:center;gap:0.7rem}
+.hero-float .stars{color:var(--gold-bright);font-size:0.65rem;letter-spacing:1px}
+.hero-float .rev-num{font-size:1.1rem;font-weight:700;color:var(--gold-bright)}
+.hero-float .rev-text{font-size:0.67rem;color:rgba(255,255,255,0.45)}
+.hero-float .rev-label{font-weight:600;font-size:0.78rem;color:#fff}
+
+/* Additional hero stat chips */
+.hero-chips{
+  display:flex;gap:0.7rem;margin-top:1.5rem;flex-wrap:wrap;
+  opacity:0;animation:hFade 0.8s var(--ease) 0.9s forwards;
+}
+.hero-chip{
+  display:flex;align-items:center;gap:0.4rem;
+  padding:0.3rem 0.8rem;border-radius:50px;
+  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
+  font-size:0.68rem;font-weight:500;color:rgba(255,255,255,0.7);
+}
+.hero-chip i{color:var(--gold-bright);font-size:0.6rem}
+
+/* ============================================================
+   MARQUEE
+   ============================================================ */
+.marquee{padding:0.85rem 0;overflow:hidden;background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-dark))}
+.marquee-track{display:flex;gap:2.2rem;white-space:nowrap;animation:mScroll 22s linear infinite}
+.marquee-item{display:flex;align-items:center;gap:0.7rem;font-family:var(--font-display);font-size:0.78rem;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:0.08em;flex-shrink:0}
+.marquee-item .dot{width:4px;height:4px;background:#fff;border-radius:50%;opacity:0.4}
+@keyframes mScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ============================================================
+   ABOUT  (warm cream bg)
+   ============================================================ */
+.about-section{background:var(--bg)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.about-img-wrap{position:relative}
+.about-img-main{border-radius:20px;overflow:hidden;position:relative}
+.about-img-main img{width:100%;height:420px;object-fit:cover;transition:transform 0.5s var(--ease);display:block}
+.about-img-main:hover img{transform:scale(1.03)}
+/* Decorative frame corner accents */
+.about-img-main::before,.about-img-main::after{
+  content:'';position:absolute;width:36px;height:36px;
+  border-color:var(--gold);border-style:solid;z-index:2;
+}
+.about-img-main::before{top:-6px;left:-6px;border-width:2px 0 0 2px;border-radius:6px 0 0 0}
+.about-img-main::after{bottom:-6px;right:-6px;border-width:0 2px 2px 0;border-radius:0 0 6px 6px}
+
+.about-img-badge{
+  position:absolute;bottom:1rem;left:1rem;
+  background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);
+  border:1px solid var(--border-strong);
+  padding:0.55rem 0.9rem;border-radius:10px;
+  display:flex;align-items:center;gap:0.5rem;
+  font-size:0.72rem;font-weight:600;color:var(--ink);
+  box-shadow:var(--shadow-sm);
+}
+.about-img-badge i{color:var(--gold)}
+
+/* Small secondary image */
+.about-img-accent{
+  position:absolute;bottom:-1.2rem;right:-1.2rem;
+  width:130px;height:130px;border-radius:14px;overflow:hidden;
+  border:4px solid var(--bg);box-shadow:var(--shadow-md);
+}
+.about-img-accent img{width:100%;height:100%;object-fit:cover}
+
+.about-text .section-sub{margin-bottom:1.2rem}
+.about-values{display:flex;flex-direction:column;gap:0.7rem;margin-bottom:1.8rem}
+.about-value{
+  display:flex;align-items:center;gap:0.7rem;
+  font-size:0.82rem;color:var(--ink-secondary);
+}
+.about-value i{color:var(--gold);font-size:0.72rem;width:18px;text-align:center}
+.about-stats{
+  display:flex;gap:0;margin-top:2rem;
+  padding:1.2rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.about-stat{flex:1;text-align:center;position:relative}
+.about-stat+.about-stat::before{content:'';position:absolute;left:0;top:15%;height:70%;width:1px;background:var(--border)}
+.about-stat h3{font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--gold)}
+.about-stat p{font-size:0.7rem;color:var(--ink-muted);margin-top:0.1rem;text-transform:uppercase;letter-spacing:0.08em}
+
+/* ============================================================
+   SERVICES  (cream bg)
+   ============================================================ */
+.services-section{background:var(--bg-alt)}
+.services-header{text-align:center;margin-bottom:2.5rem}
+.services-header .section-sub{margin:0 auto 1.2rem}
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.service-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;padding:1.4rem;
+  transition:all 0.35s var(--ease);
+  position:relative;overflow:hidden;
+  box-shadow:var(--shadow-sm);
+}
+.service-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:2.5px;background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:0;transition:opacity 0.35s;
+}
+.service-card:hover{
+  background:var(--card-hover);border-color:var(--border-strong);
+  transform:translateY(-5px);box-shadow:var(--shadow-md);
+}
+.service-card:hover::after{opacity:1}
+.service-icon{
+  width:42px;height:42px;border-radius:10px;
+  background:var(--gold-pale);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;margin-bottom:0.9rem;
+}
+.service-icon i{color:var(--gold);font-size:0.95rem}
+.service-card h3{font-family:var(--font-display);font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:0.25rem}
+.service-price{font-size:0.9rem;font-weight:700;color:var(--gold);margin-bottom:0.5rem}
+.service-card p{font-size:0.76rem;color:var(--ink-muted);line-height:1.6}
+.service-tag{
+  display:inline-block;margin-top:0.7rem;
+  padding:0.18rem 0.6rem;border-radius:50px;
+  background:var(--gold-pale);color:var(--gold);
+  font-size:0.6rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+  border:1px solid var(--border);
+}
+.service-link{
+  display:inline-flex;align-items:center;gap:0.35rem;
+  margin-top:0.8rem;font-size:0.7rem;font-weight:600;
+  color:var(--gold);letter-spacing:0.05em;text-transform:uppercase;
+  opacity:0;transform:translateY(6px);transition:all 0.3s;
+}
+.service-card:hover .service-link{opacity:1;transform:translateY(0)}
+.service-link i{font-size:0.58rem;transition:transform 0.3s}
+.service-card:hover .service-link i{transform:translateX(3px)}
+
+/* ============================================================
+   LOCATIONS
+   ============================================================ */
+.locations-section{background:var(--bg);position:relative;overflow:hidden}
+/* Subtle dot grid pattern */
+.locations-section::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(168,134,74,0.08) 1px,transparent 1px);
+  background-size:28px 28px;pointer-events:none;
+}
+.locations-header{text-align:center;margin-bottom:2.8rem;position:relative}
+.locations-header .section-sub{margin:0 auto 1.2rem}
+
+.loc-branch-bar{
+  display:flex;align-items:stretch;gap:0;margin-bottom:2.5rem;
+  border:1px solid var(--border);border-radius:14px;overflow:hidden;
+  background:var(--card);box-shadow:var(--shadow-sm);
+}
+.loc-bar-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:0.3rem;padding:1rem;
+  position:relative;transition:background 0.3s;cursor:default;
+}
+.loc-bar-item+.loc-bar-item::before{
+  content:'';position:absolute;left:0;top:20%;height:60%;
+  width:1px;background:var(--border);
+}
+.loc-bar-item i{font-size:1rem;color:var(--gold)}
+.loc-bar-item strong{font-family:var(--font-display);font-size:0.88rem;color:var(--ink)}
+.loc-bar-item span{font-size:0.7rem;color:var(--ink-muted)}
+
+.locations-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;position:relative}
+.loc-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px;overflow:hidden;
+  transition:all 0.4s var(--ease);box-shadow:var(--shadow-sm);
+  display:flex;flex-direction:column;
+}
+.loc-card:hover{
+  transform:translateY(-7px);border-color:var(--border-strong);
+  box-shadow:var(--shadow-lg);
+}
+.loc-card-img{height:185px;overflow:hidden;position:relative}
+.loc-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s var(--ease)}
+.loc-card:hover .loc-card-img img{transform:scale(1.07)}
+.loc-card-img::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:50%;
+  background:linear-gradient(to top,rgba(0,0,0,0.4),transparent);
+  pointer-events:none;
+}
+.loc-status{
+  position:absolute;top:0.8rem;right:0.8rem;
+  padding:0.22rem 0.65rem;border-radius:50px;
+  font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  backdrop-filter:blur(6px);z-index:2;
+}
+.loc-status.open{background:rgba(216,243,220,0.9);color:var(--green);border:1px solid rgba(45,106,79,0.2)}
+.loc-status.coming{
+  background:rgba(248,240,224,0.9);color:var(--gold);border:1px solid var(--border-strong);
+  animation:cPulse 2s ease-in-out infinite;
+}
+@keyframes cPulse{0%,100%{opacity:1}50%{opacity:0.6}}
+.loc-branch-num{
+  position:absolute;top:0.8rem;left:0.8rem;z-index:2;
+  width:26px;height:26px;border-radius:50%;
+  background:rgba(255,255,255,0.9);backdrop-filter:blur(6px);
+  border:1px solid var(--border-strong);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:0.72rem;font-weight:700;color:var(--gold);
+}
+.loc-card-body{padding:1.2rem 1.3rem 1.3rem;flex:1;display:flex;flex-direction:column}
+.loc-card-body h3{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:0.12rem}
+.loc-area{font-size:0.75rem;color:var(--gold);font-weight:600;margin-bottom:0.75rem;letter-spacing:0.02em}
+.loc-detail{
+  display:flex;align-items:flex-start;gap:0.45rem;
+  font-size:0.75rem;color:var(--ink-muted);line-height:1.5;margin-bottom:0.45rem;
+}
+.loc-detail i{color:var(--gold);width:13px;text-align:center;margin-top:0.15rem;font-size:0.68rem;flex-shrink:0}
+.loc-hours{
+  display:flex;align-items:center;gap:0.4rem;font-size:0.7rem;
+  color:var(--ink-muted);margin-top:0.55rem;padding-top:0.55rem;
+  border-top:1px solid var(--border);
+}
+.loc-hours i{color:var(--gold);font-size:0.62rem}
+.loc-actions{display:flex;gap:0.55rem;margin-top:auto;padding-top:0.9rem}
+.loc-btn{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  gap:0.35rem;padding:0.55rem;border-radius:9px;
+  font-size:0.67rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;
+  cursor:pointer;border:1px solid var(--border);
+  background:var(--bg-alt);color:var(--gold);transition:all 0.3s;
+}
+.loc-btn:hover{background:var(--gold-pale);border-color:var(--gold)}
+.loc-btn.primary{
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:#fff;border-color:transparent;
+}
+.loc-btn.primary:hover{box-shadow:var(--shadow-gold)}
+
+/* Coming soon overlay */
+.loc-card.coming-soon .loc-card-img img{filter:grayscale(0.3) brightness(0.95)}
+.loc-notify-form{display:flex;gap:0.45rem;margin-top:auto;padding-top:0.75rem}
+.loc-notify-form input{
+  flex:1;padding:0.5rem 0.75rem;border-radius:8px;
+  background:var(--bg-alt);border:1px solid var(--border);
+  color:var(--ink);font-family:var(--font-body);font-size:0.7rem;outline:none;
+  transition:border-color 0.3s;
+}
+.loc-notify-form input::placeholder{color:var(--ink-faint)}
+.loc-notify-form input:focus{border-color:var(--gold)}
+.loc-notify-form button{
+  padding:0.5rem 0.9rem;border-radius:8px;border:none;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:#fff;font-family:var(--font-body);font-size:0.68rem;
+  font-weight:600;cursor:pointer;transition:all 0.3s;white-space:nowrap;
+}
+.loc-notify-form button:hover{box-shadow:var(--shadow-gold)}
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+.reviews-section{background:var(--bg-alt)}
+.reviews-header{text-align:center;margin-bottom:2.5rem}
+.reviews-header .section-sub{margin:0 auto}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.review-card{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:1.4rem;box-shadow:var(--shadow-sm);transition:all 0.3s var(--ease);
+}
+.review-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--border-strong)}
+.review-stars{color:var(--gold);font-size:0.7rem;letter-spacing:2px;margin-bottom:0.7rem}
+.review-text{font-size:0.82rem;color:var(--ink-secondary);line-height:1.7;font-style:italic;margin-bottom:1rem}
+.review-text::before{content:'\201C';font-family:var(--font-display);font-size:1.6rem;color:var(--gold-light);line-height:0;vertical-align:-0.4rem;margin-right:0.15rem}
+.review-author{display:flex;align-items:center;gap:0.6rem}
+.review-avatar{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--gold-pale);border:2px solid var(--border-strong);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:0.85rem;font-weight:700;color:var(--gold);
+  flex-shrink:0;
+}
+.review-author h5{font-size:0.8rem;font-weight:600;color:var(--ink)}
+.review-author span{font-size:0.68rem;color:var(--ink-muted)}
+.review-platform{
+  display:flex;align-items:center;gap:0.3rem;
+  margin-left:auto;font-size:0.65rem;color:var(--ink-faint);
+}
+.review-platform i{font-size:0.7rem}
+
+/* ============================================================
+   AI AUTOMATIONS
+   ============================================================ */
+.ai-section{background:var(--bg)}
+.ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.ai-features{display:flex;flex-direction:column;gap:0.9rem}
+.ai-feature{
+  display:flex;gap:0.9rem;padding:1.1rem;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;transition:all 0.3s var(--ease);
+  box-shadow:var(--shadow-sm);
+}
+.ai-feature:hover{
+  border-color:var(--border-strong);box-shadow:var(--shadow-md);
+  transform:translateX(5px);
+}
+.ai-icon{
+  width:40px;height:40px;border-radius:10px;flex-shrink:0;
+  background:var(--gold-pale);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+}
+.ai-icon i{color:var(--gold);font-size:0.9rem}
+.ai-feature h4{font-size:0.88rem;font-weight:600;color:var(--ink);margin-bottom:0.15rem}
+.ai-feature p{font-size:0.76rem;color:var(--ink-muted);line-height:1.55}
+/* AI Visual */
+.ai-visual{display:flex;align-items:center;justify-content:center}
+.ai-orb-wrap{position:relative;width:280px;height:280px}
+.ai-orb{
+  width:100%;height:100%;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,var(--gold-pale) 0%,rgba(232,213,176,0.3) 40%,transparent 70%);
+  border:1.5px solid var(--border-strong);
+  display:flex;align-items:center;justify-content:center;
+  animation:orbFloat 5s ease-in-out infinite;position:relative;
+  box-shadow:0 0 60px rgba(168,134,74,0.1);
+}
+.ai-orb::before,.ai-orb::after{
+  content:'';position:absolute;border-radius:50%;border:1px solid var(--border);
+}
+.ai-orb::before{inset:-16px;animation:orbFloat 5s ease-in-out 0.8s infinite}
+.ai-orb::after{inset:-34px;animation:orbFloat 5s ease-in-out 1.6s infinite}
+@keyframes orbFloat{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+.ai-orb-inner{text-align:center;z-index:1}
+.ai-orb-inner i{font-size:2rem;color:var(--gold);display:block;margin-bottom:0.5rem}
+.ai-orb-inner span{font-family:var(--font-display);font-size:1rem;font-weight:600;color:var(--ink)}
+.ai-tag{
+  position:absolute;padding:0.3rem 0.75rem;border-radius:50px;
+  background:var(--card);border:1px solid var(--border-strong);
+  font-size:0.62rem;font-weight:600;color:var(--gold);
+  letter-spacing:0.05em;white-space:nowrap;box-shadow:var(--shadow-sm);
+}
+.ai-tag:nth-child(1){top:-5px;right:-25px}
+.ai-tag:nth-child(2){bottom:25px;left:-45px}
+.ai-tag:nth-child(3){top:38%;right:-55px}
+
+/* ============================================================
+   PAYMENT GATEWAYS
+   ============================================================ */
+.payment-section{background:var(--bg-alt)}
+.payment-header{text-align:center;margin-bottom:2.5rem}
+.payment-header .section-sub{margin:0 auto}
+.payment-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:1.5rem}
+.pay-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:1.7rem 1.5rem;
+  text-align:center;transition:all 0.35s var(--ease);box-shadow:var(--shadow-sm);
+  position:relative;overflow:hidden;
+}
+.pay-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,var(--gold-bright),transparent);
+  opacity:0;transition:opacity 0.35s;
+}
+.pay-card:hover{transform:translateY(-5px);border-color:var(--border-strong);box-shadow:var(--shadow-md)}
+.pay-card:hover::before{opacity:1}
+.pay-logo{height:40px;display:flex;align-items:center;justify-content:center;margin-bottom:0.9rem}
+.pay-logo span{font-size:1.3rem;font-weight:800;letter-spacing:0.02em}
+.pay-logo .ipay{color:#E53935}
+.pay-logo .eghl{color:#1565C0}
+.pay-logo .stripe{color:#635BFF}
+.pay-card h4{font-family:var(--font-display);font-size:0.9rem;font-weight:600;color:var(--ink);margin-bottom:0.35rem}
+.pay-card>p{font-size:0.76rem;color:var(--ink-muted);line-height:1.6}
+.pay-divider{width:30px;height:1px;background:var(--border);margin:0.9rem auto}
+.pay-features{text-align:left}
+.pay-features li{
+  display:flex;align-items:center;gap:0.45rem;
+  font-size:0.72rem;color:var(--ink-secondary);padding:0.28rem 0;
+  border-bottom:1px solid var(--border);
+}
+.pay-features li:last-child{border-bottom:none}
+.pay-features li i{color:var(--gold);font-size:0.58rem;flex-shrink:0}
+.payment-note{
+  text-align:center;padding:0.9rem 1.5rem;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;font-size:0.8rem;color:var(--ink-muted);
+  box-shadow:var(--shadow-sm);
+}
+.payment-note i{color:var(--gold);margin-right:0.4rem}
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+.gallery-section{background:var(--bg);overflow:hidden}
+.gallery-header{text-align:center;margin-bottom:2.5rem}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.gallery-item{
+  position:relative;border-radius:14px;overflow:hidden;
+  aspect-ratio:4/3;cursor:pointer;box-shadow:var(--shadow-sm);
+}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s var(--ease)}
+.gallery-item:hover img{transform:scale(1.06)}
+.gallery-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(26,18,8,0.6) 0%,transparent 55%);
+  opacity:0;transition:opacity 0.35s;display:flex;align-items:flex-end;padding:1.1rem;
+}
+.gallery-item:hover .gallery-overlay{opacity:1}
+.gallery-overlay span{font-size:0.75rem;font-weight:500;color:#fff}
+
+/* ============================================================
+   CTA — dark accent band
+   ============================================================ */
+.cta-section{
+  background:var(--ink);
+  position:relative;overflow:hidden;
+}
+.cta-section::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center,rgba(200,169,126,0.08) 0%,transparent 65%);
+}
+/* Diagonal stripe accent */
+.cta-section::after{
+  content:'';position:absolute;top:-40%;right:-10%;
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(200,169,126,0.06) 0%,transparent 70%);
+}
+.cta-content{text-align:center;position:relative;z-index:1;max-width:600px;margin:0 auto}
+.cta-content .section-title{color:#fff}
+.cta-content .section-sub{color:rgba(245,240,235,0.6);margin:0 auto 2rem;max-width:420px}
+.cta-content .eyebrow{color:var(--gold-bright)}
+.cta-content .eyebrow::before{background:var(--gold-bright)}
+.cta-buttons{display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap}
+.cta-info{display:flex;gap:1.8rem;justify-content:center;margin-top:2rem;flex-wrap:wrap}
+.cta-info-item{
+  display:flex;align-items:center;gap:0.45rem;
+  font-size:0.75rem;color:rgba(245,240,235,0.55);
+  transition:color 0.3s;
+}
+.cta-info-item:hover{color:var(--gold-bright)}
+.cta-info-item i{color:var(--gold-bright);font-size:0.8rem}
+
+/* ============================================================
+   FOOTER — dark
+   ============================================================ */
+.footer{background:var(--footer-bg);border-top:1px solid var(--footer-border);padding:3rem 0 1.5rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:2rem;margin-bottom:2rem}
+.footer-brand p{font-size:0.76rem;color:rgba(245,240,235,0.45);line-height:1.8;margin-top:0.75rem;max-width:255px}
+.footer-social{display:flex;gap:0.5rem;margin-top:1.1rem}
+.footer-social a{
+  width:32px;height:32px;border-radius:8px;
+  background:rgba(200,169,126,0.06);border:1px solid rgba(200,169,126,0.1);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(245,240,235,0.4);font-size:0.78rem;transition:all 0.3s;
+}
+.footer-social a:hover{background:rgba(200,169,126,0.15);border-color:var(--gold-bright);color:var(--gold-bright);transform:translateY(-2px)}
+.footer-col h4{font-size:0.68rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:0.9rem}
+.footer-col ul li{margin-bottom:0.38rem}
+.footer-col ul li a{font-size:0.76rem;color:rgba(245,240,235,0.45);transition:color 0.3s}
+.footer-col ul li a:hover{color:var(--gold-bright)}
+.footer-contact-item{display:flex;gap:0.45rem;margin-bottom:0.55rem;font-size:0.76rem;color:rgba(245,240,235,0.45)}
+.footer-contact-item i{color:var(--gold-bright);width:13px;text-align:center;margin-top:0.15rem;font-size:0.7rem}
+.footer-bottom{
+  padding-top:1.5rem;border-top:1px solid rgba(200,169,126,0.06);
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:0.68rem;color:rgba(245,240,235,0.3);
+}
+
+/* Back to top */
+.back-top{
+  position:fixed;bottom:1.5rem;right:1.5rem;z-index:900;
+  width:38px;height:38px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:#fff;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.78rem;opacity:0;visibility:hidden;
+  transition:all 0.35s var(--ease);box-shadow:var(--shadow-gold);
+}
+.back-top.show{opacity:1;visibility:visible}
+.back-top:hover{transform:translateY(-2px)}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:1024px){
+  .about-grid,.ai-grid{grid-template-columns:1fr;gap:2rem}
+  .ai-visual{order:-1}
+  .services-grid{grid-template-columns:repeat(2,1fr)}
+  .locations-grid{grid-template-columns:repeat(2,1fr)}
+  .locations-grid .loc-card:last-child{grid-column:1/-1;max-width:460px;margin:0 auto;width:100%}
+  .payment-grid{grid-template-columns:repeat(2,1fr)}
+  .reviews-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:repeat(2,1fr)}
+  .about-img-accent{display:none}
+}
+@media(max-width:768px){
+  html{font-size:14px}
+  .nav-links,.nav-cta{display:none}
+  .nav-toggle{display:flex}
+  .services-grid,.locations-grid,.payment-grid,.reviews-grid{grid-template-columns:1fr}
+  .locations-grid .loc-card:last-child{max-width:none}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:0.5rem;text-align:center}
+  .hero-float.reviews{display:none}
+  .hero-chips{display:none}
+  .about-stats{flex-wrap:wrap}
+  .cta-info{flex-direction:column;align-items:center}
+  .ai-tag{display:none}
+  .loc-branch-bar{flex-direction:column}
+  .loc-bar-item+.loc-bar-item::before{top:0;left:20%;width:60%;height:1px}
+}
+@media(max-width:480px){
+  .container{padding:0 1rem}
+  .gallery-grid{grid-template-columns:1fr}
+  .hero-buttons{flex-direction:column}
+  .hero-buttons .btn{width:100%;justify-content:center}
+  .loc-actions{flex-direction:column}
+  .cta-buttons{flex-direction:column;align-items:center}
+  .cta-buttons .btn{width:100%;justify-content:center}
+  .top-strip-left a:nth-child(n+3){display:none}
+  .wa-widget{right:4rem}
+  .top-strip-left span.loc-label{display:none}
+}
+@media(max-width:480px){
+  .top-strip{display:none}
+  .nav{top:0!important}
+}
+
+/* ============================================================
+   TOP STRIP
+   ============================================================ */
+.top-strip{
+  position:fixed;top:0;left:0;width:100%;z-index:1001;
+  background:var(--ink);height:52px;
+  border-bottom:1px solid rgba(200,169,126,0.12);
+}
+.top-strip-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  height:52px;gap:1rem;
+}
+.top-strip-left{display:flex;align-items:center;gap:1.4rem;flex:1;min-width:0}
+.top-strip-left a,.top-strip-left span{
+  display:flex;align-items:center;gap:0.45rem;
+  font-size:0.85rem;color:#fff;
+  letter-spacing:0.02em;white-space:nowrap;transition:color 0.3s;
+}
+.top-strip-left a:hover{color:var(--gold-bright)}
+.top-strip-left i{color:var(--gold-bright);font-size:0.78rem;flex-shrink:0}
+.top-strip-right{display:flex;align-items:center;gap:0.55rem;flex-shrink:0}
+.top-strip-right a{
+  width:34px;height:34px;border-radius:7px;
+  background:rgba(200,169,126,0.1);border:1px solid rgba(200,169,126,0.18);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,0.85);font-size:0.8rem;transition:all 0.3s;
+}
+.top-strip-right a:hover{background:rgba(200,169,126,0.28);color:#fff}
+.top-strip-divider{width:1px;height:22px;background:rgba(200,169,126,0.2);flex-shrink:0}
+
+/* ============================================================
+   WHATSAPP CHATBOT
+   ============================================================ */
+.wa-widget{position:fixed;bottom:1.5rem;right:5rem;z-index:901}
+.wa-btn{
+  width:50px;height:50px;border-radius:50%;
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  color:#fff;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;box-shadow:0 4px 22px rgba(37,211,102,0.4);
+  transition:all 0.3s var(--ease);position:relative;
+}
+.wa-btn:hover{transform:scale(1.08);box-shadow:0 8px 32px rgba(37,211,102,0.5)}
+.wa-pulse{
+  position:absolute;top:1px;right:1px;width:13px;height:13px;
+  background:#4CAF50;border-radius:50%;border:2px solid var(--bg);
+  animation:waPulse 2.2s ease-in-out infinite;
+}
+@keyframes waPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:0.4}}
+.wa-chat{
+  position:absolute;bottom:62px;right:0;
+  width:295px;background:var(--card);
+  border-radius:18px;box-shadow:var(--shadow-lg);
+  border:1px solid var(--border);overflow:hidden;
+  opacity:0;visibility:hidden;transform:translateY(14px) scale(0.94);
+  transform-origin:bottom right;transition:all 0.35s var(--ease);
+}
+.wa-chat.open{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+.wa-chat-header{
+  background:linear-gradient(135deg,#075E54,#128C7E);
+  padding:0.8rem 1rem;display:flex;align-items:center;gap:0.7rem;
+}
+.wa-avatar{
+  width:38px;height:38px;border-radius:50%;overflow:hidden;
+  border:2px solid rgba(255,255,255,0.25);flex-shrink:0;
+}
+.wa-avatar img{width:100%;height:100%;object-fit:cover}
+.wa-header-info{flex:1}
+.wa-header-info h5{font-size:0.82rem;font-weight:600;color:#fff;margin-bottom:0.1rem}
+.wa-online{display:flex;align-items:center;gap:0.3rem;font-size:0.62rem;color:rgba(255,255,255,0.7)}
+.wa-online::before{content:'';width:6px;height:6px;background:#4CAF50;border-radius:50%;flex-shrink:0}
+.wa-close{
+  background:none;border:none;cursor:pointer;
+  color:rgba(255,255,255,0.6);font-size:0.9rem;padding:0.25rem;transition:color 0.3s;
+}
+.wa-close:hover{color:#fff}
+.wa-body{padding:0.9rem;background:#ECE5DD;min-height:120px;display:flex;flex-direction:column;gap:0.6rem}
+.wa-bubble{
+  background:#fff;border-radius:0 12px 12px 12px;
+  padding:0.6rem 0.85rem;max-width:88%;font-size:0.75rem;
+  color:var(--ink);line-height:1.55;box-shadow:0 1px 4px rgba(0,0,0,0.09);
+  position:relative;
+}
+.wa-bubble::before{
+  content:'';position:absolute;top:0;left:-7px;
+  border:7px solid transparent;
+  border-right-color:#fff;border-top-color:#fff;
+}
+.wa-bubble-time{font-size:0.58rem;color:#999;text-align:right;margin-top:0.2rem;display:flex;align-items:center;justify-content:flex-end;gap:0.2rem}
+.wa-bubble-time i{font-size:0.55rem;color:#4CAF50}
+/* Typing indicator */
+.wa-typing{
+  background:#fff;border-radius:0 12px 12px 12px;
+  padding:0.55rem 0.85rem;display:inline-flex;align-items:center;gap:4px;
+  box-shadow:0 1px 4px rgba(0,0,0,0.09);position:relative;width:60px;
+}
+.wa-typing::before{
+  content:'';position:absolute;top:0;left:-7px;
+  border:7px solid transparent;
+  border-right-color:#fff;border-top-color:#fff;
+}
+.wa-typing span{
+  width:7px;height:7px;background:#999;border-radius:50%;
+  animation:waDot 1.4s ease-in-out infinite;
+}
+.wa-typing span:nth-child(2){animation-delay:0.2s}
+.wa-typing span:nth-child(3){animation-delay:0.4s}
+@keyframes waDot{0%,60%,100%{transform:translateY(0);opacity:0.4}30%{transform:translateY(-5px);opacity:1}}
+.wa-bubble2{display:none}
+.wa-body{padding:0.9rem;background:#ECE5DD;min-height:100px;max-height:210px;overflow-y:auto;display:flex;flex-direction:column;gap:0.6rem;scroll-behavior:smooth}
+.wa-footer{padding:0.7rem 0.9rem;border-top:1px solid #ddd;background:#f0f0f0}
+.wa-input-row{display:flex;gap:0.4rem;align-items:center;margin-bottom:0.55rem}
+.wa-input{
+  flex:1;padding:0.5rem 0.85rem;border-radius:22px;
+  border:1px solid #ddd;font-family:var(--font-body);font-size:0.76rem;
+  outline:none;color:var(--ink);background:#fff;transition:border-color 0.3s;
+}
+.wa-input:focus{border-color:#25D366}
+.wa-send-btn{
+  width:36px;height:36px;flex-shrink:0;border-radius:50%;
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  border:none;color:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.82rem;transition:all 0.3s;
+}
+.wa-send-btn:hover{transform:scale(1.08);box-shadow:0 3px 12px rgba(37,211,102,0.4)}
+.wa-user-bubble{
+  background:#DCF8C6;border-radius:12px 0 12px 12px;
+  padding:0.55rem 0.85rem;max-width:85%;font-size:0.75rem;
+  color:var(--ink);line-height:1.5;box-shadow:0 1px 4px rgba(0,0,0,0.08);
+  align-self:flex-end;position:relative;
+}
+.wa-user-bubble-time{font-size:0.58rem;color:#999;text-align:right;margin-top:0.15rem;display:flex;align-items:center;justify-content:flex-end;gap:0.2rem}
+.wa-reply-btn{
+  display:flex;align-items:center;justify-content:center;gap:0.4rem;
+  width:100%;padding:0.6rem;
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  color:#fff;border:none;border-radius:10px;
+  font-family:var(--font-body);font-size:0.76rem;font-weight:600;
+  cursor:pointer;transition:all 0.3s;letter-spacing:0.03em;text-decoration:none;
+}
+.wa-reply-btn:hover{box-shadow:0 4px 16px rgba(37,211,102,0.35);transform:translateY(-1px)}
+.wa-reply-btn i{font-size:1rem}
+
+/* ============================================================
+   MEET THE BARBERS
+   ============================================================ */
+.barbers-section{
+  background:var(--ink);position:relative;overflow:hidden;
+  padding:clamp(3.5rem,7vw,5.5rem) 0 clamp(3rem,6vw,4.5rem);
+}
+.barbers-section::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 25% 60%,rgba(200,169,126,0.07) 0%,transparent 65%);
+  pointer-events:none;
+}
+.barbers-header{text-align:center;margin-bottom:2.5rem;position:relative}
+.barbers-header .section-title{color:#fff}
+.barbers-header .eyebrow{color:var(--gold-bright)}
+.barbers-header .eyebrow::before{background:var(--gold-bright)}
+.barbers-header .section-sub{color:rgba(245,240,235,0.5);margin:0 auto}
+.barbers-strip-outer{
+  overflow:hidden;
+  mask-image:linear-gradient(to right,transparent 0%,black 7%,black 93%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to right,transparent 0%,black 7%,black 93%,transparent 100%);
+}
+.barbers-strip{
+  display:flex;gap:1.5rem;width:max-content;
+  will-change:transform;
+}
+/* Barbers nav arrows */
+.barbers-nav-wrapper{position:relative}
+.barbers-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:20;
+  width:48px;height:48px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:#fff;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;opacity:0;pointer-events:none;
+  transition:opacity 0.3s,transform 0.3s;
+  box-shadow:0 4px 20px rgba(0,0,0,0.5);
+}
+.barbers-nav-wrapper:hover .barbers-arrow{opacity:1;pointer-events:auto}
+.barbers-arrow:hover{transform:translateY(-50%) scale(1.12)}
+.barbers-arrow-prev{left:1rem}
+.barbers-arrow-next{right:1rem}
+.barber-card{
+  flex-shrink:0;width:215px;
+  background:rgba(255,255,255,0.035);
+  border:1px solid rgba(200,169,126,0.1);
+  border-radius:18px;overflow:hidden;
+  transition:all 0.4s var(--ease);cursor:pointer;position:relative;
+}
+.barber-card:hover{
+  background:rgba(200,169,126,0.08);
+  border-color:rgba(200,169,126,0.28);
+  transform:translateY(-10px) scale(1.02);
+  box-shadow:0 22px 55px rgba(0,0,0,0.45);
+}
+.barber-img{height:255px;overflow:hidden;position:relative;background:#111}
+.barber-img img{
+  width:100%;height:100%;object-fit:cover;object-position:top center;
+  transition:transform 0.5s var(--ease);filter:contrast(1.05);
+}
+.barber-card:hover .barber-img img{transform:scale(1.06)}
+.barber-img-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,7,2,0.8) 0%,transparent 55%);
+}
+.barber-body{padding:1rem 1.1rem 1.2rem;position:relative}
+.barber-num{
+  position:absolute;top:-1rem;right:1rem;
+  width:30px;height:30px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:0.72rem;font-weight:700;color:#fff;
+  box-shadow:0 3px 12px rgba(168,134,74,0.4);
+}
+.barber-body h3{font-family:var(--font-display);font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.08rem}
+.barber-title{font-size:0.72rem;font-style:italic;color:var(--gold-bright);margin-bottom:0.5rem}
+.barber-years{
+  display:inline-flex;align-items:center;gap:0.28rem;
+  font-size:0.62rem;color:rgba(245,240,235,0.4);
+  background:rgba(200,169,126,0.08);border:1px solid rgba(200,169,126,0.12);
+  padding:0.15rem 0.55rem;border-radius:50px;
+}
+.barber-years i{color:var(--gold-bright);font-size:0.52rem}
+
+/* ============================================================
+   AI AUTOMATIONS  (restored)
+   ============================================================ */
+.ai-section{background:var(--bg)}
+
+/* ============================================================
+   GALLERY EXPANDED
+   ============================================================ */
+.gallery-grid-lg{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1rem;
+}
+@media(max-width:768px){.gallery-grid-lg{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.gallery-grid-lg{grid-template-columns:1fr}}
+
+/* ============================================================
+   BLOG SECTION
+   ============================================================ */
+.blog-section{background:var(--bg-alt)}
+.blog-header-row{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem}
+.blog-header-row .section-sub{margin:0;max-width:none}
+.blog-all-link{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  font-size:0.72rem;font-weight:600;color:var(--gold);
+  letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;
+  transition:gap 0.3s,color 0.3s;
+}
+.blog-all-link:hover{gap:0.7rem;color:var(--gold-dark)}
+.blog-all-link i{font-size:0.58rem}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem}
+@media(max-width:900px){.blog-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.blog-grid{grid-template-columns:1fr}}
+.blog-card{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  overflow:hidden;transition:all 0.4s var(--ease);box-shadow:var(--shadow-sm);
+}
+.blog-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--border-strong)}
+.blog-card-img{height:200px;overflow:hidden;position:relative}
+.blog-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s var(--ease)}
+.blog-card:hover .blog-card-img img{transform:scale(1.06)}
+.blog-card-tag{
+  position:absolute;top:0.85rem;left:0.85rem;
+  padding:0.22rem 0.65rem;border-radius:50px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#fff;
+  font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+}
+.blog-card-body{padding:1.3rem}
+.blog-card-meta{font-size:0.68rem;color:var(--ink-muted);margin-bottom:0.55rem;display:flex;align-items:center;gap:0.75rem}
+.blog-card-meta span{display:flex;align-items:center;gap:0.28rem}
+.blog-card-meta i{font-size:0.56rem;color:var(--gold)}
+.blog-card-body h3{
+  font-family:var(--font-display);font-size:1.05rem;font-weight:700;
+  color:var(--ink);margin-bottom:0.45rem;line-height:1.35;transition:color 0.3s;
+}
+.blog-card:hover .blog-card-body h3{color:var(--gold-dark)}
+.blog-card-body p{font-size:0.8rem;color:var(--ink-muted);line-height:1.7;margin-bottom:0.9rem}
+.blog-card-link{
+  display:inline-flex;align-items:center;gap:0.38rem;
+  font-size:0.7rem;font-weight:600;color:var(--gold);
+  letter-spacing:0.05em;text-transform:uppercase;transition:gap 0.3s;
+}
+.blog-card:hover .blog-card-link{gap:0.65rem}
+.blog-card-link i{font-size:0.55rem}
+</style>
+</head>
+<body>
+
+<!-- TOP STRIP -->
+<div class="top-strip" id="topStrip">
+  <div class="container">
+    <div class="top-strip-inner">
+      <div class="top-strip-left">
+        <a href="tel:+60176577316"><i class="fas fa-phone"></i> +60 17-657 7316</a>
+        <a href="mailto:aceoffades.ta@gmail.com"><i class="fas fa-envelope"></i> aceoffades.ta@gmail.com</a>
+        <span class="loc-label"><i class="fas fa-map-marker-alt"></i> Tropicana Ave PJ &amp; Subang Jaya</span>
+      </div>
+      <div class="top-strip-divider"></div>
+      <div class="top-strip-right">
+        <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/aceoffades.ta/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.tiktok.com/@aceoffades.my" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://wa.me/60176577316" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <img src="ace_of_fades/ace_of_fades_logo.png" alt="Ace of Fades">
+  <div class="loader-bar"><span></span></div>
+</div>
+
+<!-- CURSOR -->
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- ===================== NAV ===================== -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="ace_of_fades/ace_of_fades_logo.png" alt="Ace of Fades">
+      <span>Ace of Fades</span>
+    </a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#locations">Locations</a>
+      <a href="#ai">AI Features</a>
+      <a href="#payment">Payments</a>
+    </div>
+    <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="nav-cta">Book Now</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#locations" onclick="closeMobile()">Locations</a>
+  <a href="#ai" onclick="closeMobile()">AI Features</a>
+  <a href="#payment" onclick="closeMobile()">Payments</a>
+  <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" onclick="closeMobile()" class="btn btn-gold" style="margin-top:1rem;" target="_blank" rel="noopener noreferrer">Book Now</a>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
+  <div class="hero-bg"><img src="ace_of_fades/ace_of_fades_hero.png" alt="Ace of Fades"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><i class="fas fa-crown"></i> Premium Barbershop &middot; PJ &amp; Subang Jaya</div>
+    <h1 class="hero-title">
+      <span class="line"><span class="line-inner">A Sanctuary for</span></span>
+      <span class="line"><span class="line-inner">the Modern</span></span>
+      <span class="line"><span class="line-inner"><em>Gentleman</em></span></span>
+    </h1>
+    <p class="hero-desc">Step into Ace of Fades — where timeless grooming meets contemporary style. Premium cuts, luxurious treatments, and a vibe that's unmistakably ours.</p>
+    <div class="hero-buttons">
+      <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="btn btn-gold"><i class="fas fa-calendar-check"></i> Book Appointment</a>
+      <a href="#services" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.25);"><i class="fas fa-scissors"></i> Our Services</a>
+    </div>
+    <div class="hero-chips">
+      <div class="hero-chip"><i class="fas fa-star"></i> 5.0 Rated</div>
+      <div class="hero-chip"><i class="fas fa-map-marker-alt"></i> 3 Locations</div>
+      <div class="hero-chip"><i class="fas fa-robot"></i> AI-Powered Booking</div>
+      <div class="hero-chip"><i class="fas fa-shield-halved"></i> Secure Payments</div>
+    </div>
+  </div>
+  <div class="hero-float reviews" id="heroReview">
+    <div><div class="rev-num">5.0</div><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div></div>
+    <div><div class="rev-label">100% Recommend</div><div class="rev-text">21+ Google Reviews</div></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="dot"></span>Gentleman's Cut</span>
+    <span class="marquee-item"><span class="dot"></span>Beard Sculpting</span>
+    <span class="marquee-item"><span class="dot"></span>Hair Treatment</span>
+    <span class="marquee-item"><span class="dot"></span>Facial Services</span>
+    <span class="marquee-item"><span class="dot"></span>Hair Colouring</span>
+    <span class="marquee-item"><span class="dot"></span>Hot Towel Shave</span>
+    <span class="marquee-item"><span class="dot"></span>Junior Cuts</span>
+    <span class="marquee-item"><span class="dot"></span>Facial Waxing</span>
+    <span class="marquee-item"><span class="dot"></span>Gentleman's Cut</span>
+    <span class="marquee-item"><span class="dot"></span>Beard Sculpting</span>
+    <span class="marquee-item"><span class="dot"></span>Hair Treatment</span>
+    <span class="marquee-item"><span class="dot"></span>Facial Services</span>
+    <span class="marquee-item"><span class="dot"></span>Hair Colouring</span>
+    <span class="marquee-item"><span class="dot"></span>Hot Towel Shave</span>
+    <span class="marquee-item"><span class="dot"></span>Junior Cuts</span>
+    <span class="marquee-item"><span class="dot"></span>Facial Waxing</span>
+  </div>
+</div>
+
+<!-- ===================== ABOUT ===================== -->
+<section class="section about-section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap gs">
+        <div class="about-img-main">
+          <img src="ace_of_fades/ace_of_fades_1.jpg" alt="Inside Ace of Fades">
+          <div class="about-img-badge"><i class="fas fa-award"></i><span>100% Recommended</span></div>
+        </div>
+        <div class="about-img-accent">
+          <img src="ace_of_fades/ace_of_fades_2.jpg" alt="Barbershop detail">
+        </div>
+      </div>
+      <div class="about-text gs">
+        <span class="eyebrow">Who We Are</span>
+        <h2 class="section-title">More Than Just a <span class="gold-text">Barbershop</span></h2>
+        <div class="gold-line"></div>
+        <p class="section-sub" style="margin-bottom:1rem;">Ace of Fades is a sanctuary for the modern gentleman — a high-end grooming space where you can kick back, unwind, and re-calibrate from the hustle of everyday life.</p>
+        <div class="about-values">
+          <div class="about-value"><i class="fas fa-check-circle"></i> Premium products only — no compromises</div>
+          <div class="about-value"><i class="fas fa-check-circle"></i> Experienced, certified barbers</div>
+          <div class="about-value"><i class="fas fa-check-circle"></i> Warm, relaxed & welcoming atmosphere</div>
+          <div class="about-value"><i class="fas fa-check-circle"></i> Walk-in or book ahead — flexible for you</div>
+        </div>
+        <div class="about-stats">
+          <div class="about-stat"><h3 data-count="3">0</h3><p>Locations</p></div>
+          <div class="about-stat"><h3 data-count="5.0" data-decimal>0</h3><p>Star Rating</p></div>
+          <div class="about-stat"><h3 data-count="8" data-suffix="+">0</h3><p>Services</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SERVICES ===================== -->
+<section class="section services-section" id="services">
+  <div class="container">
+    <div class="services-header">
+      <span class="eyebrow gs">Our Services</span>
+      <h2 class="section-title gs">Full-Service <span class="gold-text">Grooming</span></h2>
+      <p class="section-sub gs">From classic haircuts to deep-cleanse facials — performed with care, skill and premium products.</p>
+      <div class="scissors-divider gs" style="margin-top:1rem"><i class="fas fa-scissors"></i></div>
+    </div>
+    <div class="services-grid">
+      <div class="service-card gs">
+        <div class="service-icon"><i class="fas fa-scissors"></i></div>
+        <h3>Gentleman's Cut</h3>
+        <div class="service-price">RM35</div>
+        <p>The finest men's haircut, straight razor shave, or relaxing hot towel treatment. Old school, turned up a notch.</p>
+        <span class="service-tag">Most Popular</span>
+        <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="service-link">Book Now <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card gs">
+        <div class="service-icon"><i class="fas fa-hand-sparkles"></i></div>
+        <h3>Shave & Shape</h3>
+        <div class="service-price">RM15 — RM25</div>
+        <p>Full beard shaping with T-machine and shears, finishing with a hot towel and straight razor shave.</p>
+        <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="service-link">Book Now <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card gs">
+        <div class="service-icon"><i class="fas fa-spa"></i></div>
+        <h3>Hair Treatment</h3>
+        <div class="service-price">RM45 — RM75</div>
+        <p>Scalp evaluation first — then the ideal treatment to nourish and restore your hair and scalp health.</p>
+        <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="service-link">Book Now <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card gs">
+        <div class="service-icon"><i class="fas fa-pump-soap"></i></div>
+        <h3>Shampoo Finish</h3>
+        <div class="service-price">RM15</div>
+        <p>Exclusive menthol shampoo that thoroughly cleanses, nourishes, and deeply hydrates hair and scalp.</p>
+        <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="service-link">Book Now <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card gs">
+        <div class="service-icon"><i class="fas fa-face-smile-beam"></i></div>
+        <h3>Facial Waxing</h3>
+        <div class="service-price">RM10 — RM30</div>
+        <p>Quick hard wax clean up for a perfectly groomed look — ditch the daily shave hassle.</p>
+        <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="service-link">Book Now <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card gs">
+        <div class="service-icon"><i class="fas fa-gem"></i></div>
+        <h3>Facial Services</h3>
+        <div class="service-price">RM60 — RM80</div>
+        <p>Deep cleanse mask, hot towels, and moisturizer — keeping your face bright, supple and rejuvenated.</p>
+        <span class="service-tag">Recommended</span>
+        <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="service-link">Book Now <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card gs">
+        <div class="service-icon"><i class="fas fa-palette"></i></div>
+        <h3>Hair Colouring</h3>
+        <div class="service-price">RM60 — RM130</div>
+        <p>Premium hair dyes applied by multi-skilled barbers — express your style with colour that lasts.</p>
+        <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="service-link">Book Now <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card gs">
+        <div class="service-icon"><i class="fas fa-child"></i></div>
+        <h3>Junior Cut</h3>
+        <div class="service-price">RM30</div>
+        <p>Safe, enjoyable cuts for children — from classic styles to dapper looks, in a hassle-free environment.</p>
+        <span class="service-tag">Kid Friendly</span>
+        <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="service-link">Book Now <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LOCATIONS ===================== -->
+<section class="section locations-section" id="locations">
+  <div class="container">
+    <div class="locations-header">
+      <span class="eyebrow gs">Our Branches</span>
+      <h2 class="section-title gs">3 Locations Across <span class="gold-text">Klang Valley</span></h2>
+      <p class="section-sub gs" style="margin:0 auto 1rem;">Same premium experience at every branch. Walk in or book ahead — we've got you covered.</p>
+      <div class="scissors-divider gs"><i class="fas fa-map-marker-alt"></i></div>
+    </div>
+
+    <div class="loc-branch-bar gs">
+      <div class="loc-bar-item">
+        <i class="fas fa-store"></i>
+        <strong>Tropicana Avenue</strong>
+        <span>Petaling Jaya &nbsp;•&nbsp; <span class="pill pill-green" style="padding:0.1rem 0.4rem;font-size:0.55rem;">Open</span></span>
+      </div>
+      <div class="loc-bar-item">
+        <i class="fas fa-store"></i>
+        <strong>Subang Jaya</strong>
+        <span>Selangor &nbsp;•&nbsp; <span class="pill pill-green" style="padding:0.1rem 0.4rem;font-size:0.55rem;">Open</span></span>
+      </div>
+      <div class="loc-bar-item">
+        <i class="fas fa-map-pin"></i>
+        <strong>Branch 3</strong>
+        <span>Coming Soon &nbsp;•&nbsp; <span class="pill pill-gold" style="padding:0.1rem 0.4rem;font-size:0.55rem;">Planning</span></span>
+      </div>
+    </div>
+
+    <div class="locations-grid">
+      <!-- Branch 1 -->
+      <div class="loc-card gs">
+        <div class="loc-card-img">
+          <img src="ace_of_fades/ace_of_fades_2.jpg" alt="Tropicana Avenue">
+          <span class="loc-status open"><i class="fas fa-circle" style="font-size:0.35rem;margin-right:3px;"></i>Open</span>
+          <span class="loc-branch-num">1</span>
+        </div>
+        <div class="loc-card-body">
+          <h3>Tropicana Avenue</h3>
+          <div class="loc-area"><i class="fas fa-location-dot" style="margin-right:3px;font-size:0.65rem;"></i>Petaling Jaya, Selangor</div>
+          <div class="loc-detail"><i class="fas fa-map-marker-alt"></i><span>Lot P-G-13A, Tropicana Avenue, No 12 Persiaran Tropicana, PJU 3, 47410 PJ</span></div>
+          <div class="loc-detail"><i class="fas fa-phone"></i><span>+60 17-657 7316</span></div>
+          <div class="loc-hours"><i class="fas fa-clock"></i> Mon — Sun &nbsp;|&nbsp; 10:00 AM — 9:00 PM</div>
+          <div class="loc-actions">
+            <a href="https://www.aceoffades.my/" target="_blank" rel="noopener noreferrer" class="loc-btn primary"><i class="fas fa-calendar"></i> Book</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=Ace+of+Fades+Tropicana+Avenue+Petaling+Jaya+Malaysia" target="_blank" rel="noopener noreferrer" class="loc-btn"><i class="fas fa-map-location-dot"></i> Directions</a>
+          </div>
+        </div>
+      </div>
+      <!-- Branch 2 -->
+      <div class="loc-card gs">
+        <div class="loc-card-img">
+          <img src="ace_of_fades/ace_of_fades_3.jpg" alt="Subang Jaya">
+          <span class="loc-status open"><i class="fas fa-circle" style="font-size:0.35rem;margin-right:3px;"></i>Open</span>
+          <span class="loc-branch-num">2</span>
+        </div>
+        <div class="loc-card-body">
+          <h3>Subang Jaya</h3>
+          <div class="loc-area"><i class="fas fa-location-dot" style="margin-right:3px;font-size:0.65rem;"></i>Subang Jaya, Selangor</div>
+          <div class="loc-detail"><i class="fas fa-map-marker-alt"></i><span>Subang Jaya, Selangor, Malaysia</span></div>
+          <div class="loc-detail"><i class="fas fa-phone"></i><span>+60 17-657 7316</span></div>
+          <div class="loc-hours"><i class="fas fa-clock"></i> Mon — Sun &nbsp;|&nbsp; 10:00 AM — 9:00 PM</div>
+          <div class="loc-actions">
+            <a href="https://www.aceoffades.my/" target="_blank" rel="noopener noreferrer" class="loc-btn primary"><i class="fas fa-calendar"></i> Book</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=Ace+of+Fades+Subang+Jaya+Selangor+Malaysia" target="_blank" rel="noopener noreferrer" class="loc-btn"><i class="fas fa-map-location-dot"></i> Directions</a>
+          </div>
+        </div>
+      </div>
+      <!-- Branch 3 — Coming Soon -->
+      <div class="loc-card coming-soon gs">
+        <div class="loc-card-img">
+          <img src="ace_of_fades/ace_of_fades_1.jpg" alt="New Branch">
+          <span class="loc-status coming"><i class="fas fa-star" style="font-size:0.38rem;margin-right:3px;"></i>Coming Soon</span>
+          <span class="loc-branch-num">3</span>
+        </div>
+        <div class="loc-card-body">
+          <h3>Branch 3</h3>
+          <div class="loc-area"><i class="fas fa-map-pin" style="margin-right:3px;font-size:0.65rem;"></i>Location TBA</div>
+          <div class="loc-detail"><i class="fas fa-info-circle"></i><span>Currently in planning stage — our newest branch is coming!</span></div>
+          <div class="loc-detail"><i class="fas fa-bell"></i><span>Be first to know when we open</span></div>
+          <div class="loc-notify-form">
+            <input type="email" placeholder="your@email.com">
+            <button type="button">Notify Me</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TESTIMONIALS ===================== -->
+<section class="section reviews-section" id="reviews">
+  <div class="container">
+    <div class="reviews-header">
+      <span class="eyebrow gs">What Clients Say</span>
+      <h2 class="section-title gs">Real Words, <span class="gold-text">Real Gentlemen</span></h2>
+      <p class="section-sub gs" style="margin:0 auto;">Don't just take our word for it — here's what our regulars have to say.</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card gs">
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">Best barbershop experience I've had in KL. The atmosphere is super chill, barbers really know what they're doing. My go-to place every 3 weeks now!</p>
+        <div class="review-author">
+          <div class="review-avatar">A</div>
+          <div><h5>Ahmad R.</h5><span>Regular Client · PJ Branch</span></div>
+          <div class="review-platform"><i class="fab fa-google"></i> Google</div>
+        </div>
+      </div>
+      <div class="review-card gs">
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">Came in for a haircut and stayed for the full treatment. The hot towel shave was absolutely incredible. Staff are super friendly and professional.</p>
+        <div class="review-author">
+          <div class="review-avatar">D</div>
+          <div><h5>Daniel K.</h5><span>Verified Client · Subang Branch</span></div>
+          <div class="review-platform"><i class="fab fa-google"></i> Google</div>
+        </div>
+      </div>
+      <div class="review-card gs">
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">Brought my son here for his first proper haircut. The team was so patient with him and he absolutely loved it. Will definitely be back!</p>
+        <div class="review-author">
+          <div class="review-avatar">M</div>
+          <div><h5>Marcus T.</h5><span>Client · PJ Branch</span></div>
+          <div class="review-platform"><i class="fab fa-google"></i> Google</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MEET THE BARBERS ===================== -->
+<section class="section barbers-section" id="barbers">
+  <div class="container">
+    <div class="barbers-header">
+      <span class="eyebrow gs">Our Team</span>
+      <h2 class="section-title gs">Meet the <span class="gold-text">Barbers</span></h2>
+      <p class="section-sub gs">Skilled, passionate, and dedicated to making every gentleman look their best.</p>
+    </div>
+  </div>
+  <div class="barbers-nav-wrapper">
+    <button class="barbers-arrow barbers-arrow-prev" id="barberPrev" aria-label="Previous barber"><i class="fas fa-chevron-left"></i></button>
+    <div class="barbers-strip-outer gs">
+      <div class="barbers-strip" id="barberStrip">
+      <!-- Set 1 -->
+      <div class="barber-card">
+        <div class="barber-img">
+          <img src="ace_of_fades/barber_1.webp" alt="Amir">
+          <div class="barber-img-overlay"></div>
+        </div>
+        <div class="barber-body">
+          <div class="barber-num">1</div>
+          <h3>Amir</h3>
+          <div class="barber-title">The Style Master</div>
+          <span class="barber-years"><i class="fas fa-scissors"></i> 12+ Years Exp.</span>
+        </div>
+      </div>
+      <div class="barber-card">
+        <div class="barber-img">
+          <img src="ace_of_fades/barber_2.webp" alt="Haziq">
+          <div class="barber-img-overlay"></div>
+        </div>
+        <div class="barber-body">
+          <div class="barber-num">2</div>
+          <h3>Haziq</h3>
+          <div class="barber-title">The Fade Master</div>
+          <span class="barber-years"><i class="fas fa-scissors"></i> 9+ Years Exp.</span>
+        </div>
+      </div>
+      <div class="barber-card">
+        <div class="barber-img">
+          <img src="ace_of_fades/barber_3.webp" alt="Razif">
+          <div class="barber-img-overlay"></div>
+        </div>
+        <div class="barber-body">
+          <div class="barber-num">3</div>
+          <h3>Razif</h3>
+          <div class="barber-title">The Perfectionist</div>
+          <span class="barber-years"><i class="fas fa-scissors"></i> 8+ Years Exp.</span>
+        </div>
+      </div>
+      <div class="barber-card">
+        <div class="barber-img">
+          <img src="ace_of_fades/barber_4.webp" alt="Dani">
+          <div class="barber-img-overlay"></div>
+        </div>
+        <div class="barber-body">
+          <div class="barber-num">4</div>
+          <h3>Dani</h3>
+          <div class="barber-title">The Artist</div>
+          <span class="barber-years"><i class="fas fa-scissors"></i> 7+ Years Exp.</span>
+        </div>
+      </div>
+      <!-- Set 2 — duplicate for seamless loop -->
+      <div class="barber-card">
+        <div class="barber-img">
+          <img src="ace_of_fades/barber_1.webp" alt="Amir">
+          <div class="barber-img-overlay"></div>
+        </div>
+        <div class="barber-body">
+          <div class="barber-num">1</div>
+          <h3>Amir</h3>
+          <div class="barber-title">The Style Master</div>
+          <span class="barber-years"><i class="fas fa-scissors"></i> 12+ Years Exp.</span>
+        </div>
+      </div>
+      <div class="barber-card">
+        <div class="barber-img">
+          <img src="ace_of_fades/barber_2.webp" alt="Haziq">
+          <div class="barber-img-overlay"></div>
+        </div>
+        <div class="barber-body">
+          <div class="barber-num">2</div>
+          <h3>Haziq</h3>
+          <div class="barber-title">The Fade Master</div>
+          <span class="barber-years"><i class="fas fa-scissors"></i> 9+ Years Exp.</span>
+        </div>
+      </div>
+      <div class="barber-card">
+        <div class="barber-img">
+          <img src="ace_of_fades/barber_3.webp" alt="Razif">
+          <div class="barber-img-overlay"></div>
+        </div>
+        <div class="barber-body">
+          <div class="barber-num">3</div>
+          <h3>Razif</h3>
+          <div class="barber-title">The Perfectionist</div>
+          <span class="barber-years"><i class="fas fa-scissors"></i> 8+ Years Exp.</span>
+        </div>
+      </div>
+      <div class="barber-card">
+        <div class="barber-img">
+          <img src="ace_of_fades/barber_4.webp" alt="Dani">
+          <div class="barber-img-overlay"></div>
+        </div>
+        <div class="barber-body">
+          <div class="barber-num">4</div>
+          <h3>Dani</h3>
+          <div class="barber-title">The Artist</div>
+          <span class="barber-years"><i class="fas fa-scissors"></i> 7+ Years Exp.</span>
+        </div>
+      </div>
+      </div>
+    </div>
+    <button class="barbers-arrow barbers-arrow-next" id="barberNext" aria-label="Next barber"><i class="fas fa-chevron-right"></i></button>
+  </div>
+</section>
+
+<!-- ===================== GALLERY ===================== -->
+<section class="section gallery-section" id="gallery">
+  <div class="container">
+    <div class="gallery-header">
+      <span class="eyebrow gs">The Experience</span>
+      <h2 class="section-title gs">Inside <span class="gold-text">Socials</span></h2>
+      <p class="section-sub gs" style="margin:0 auto 1.8rem;">A glimpse into our premium spaces — where every detail is crafted for the modern gentleman.</p>
+    </div>
+    <div class="gallery-grid-lg">
+      <div class="gallery-item gs"><a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer"><img src="ace_of_fades/ace_of_fades_3.jpg" alt="The Craft"><div class="gallery-overlay"><span><i class="fab fa-instagram"></i> View on Instagram</span></div></a></div>
+      <div class="gallery-item gs"><a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer"><img src="ace_of_fades/ace_of_fades_1.jpg" alt="Straight Razor Shave"><div class="gallery-overlay"><span><i class="fab fa-instagram"></i> View on Instagram</span></div></a></div>
+      <div class="gallery-item gs"><a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer"><img src="ace_of_fades/ace_of_fades_2.jpg" alt="Precision Grooming"><div class="gallery-overlay"><span><i class="fab fa-instagram"></i> View on Instagram</span></div></a></div>
+      <div class="gallery-item gs"><a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer"><img src="ace_of_fades/ace_of_fades_4.jpg" alt="Premium Interior"><div class="gallery-overlay"><span><i class="fab fa-instagram"></i> View on Instagram</span></div></a></div>
+      <div class="gallery-item gs"><a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer"><img src="ace_of_fades/barber_1.webp" alt="Expert Barbers"><div class="gallery-overlay"><span><i class="fab fa-instagram"></i> View on Instagram</span></div></a></div>
+      <div class="gallery-item gs"><a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer"><img src="ace_of_fades/barber_3.webp" alt="The Team"><div class="gallery-overlay"><span><i class="fab fa-instagram"></i> View on Instagram</span></div></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOG ===================== -->
+<section class="section blog-section" id="blog">
+  <div class="container">
+    <div class="blog-header-row">
+      <div>
+        <span class="eyebrow gs">From the Chair</span>
+        <h2 class="section-title gs">Style <span class="gold-text">Insights &amp; Tips</span></h2>
+      </div>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="blog-all-link gs">All Posts <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="blog-grid">
+      <article class="blog-card gs">
+        <div class="blog-card-img">
+          <img src="ace_of_fades/ace_of_fades_4.jpg" alt="Find your signature look">
+          <span class="blog-card-tag">Style Guide</span>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-meta">
+            <span><i class="fas fa-calendar"></i> Apr 10, 2026</span>
+            <span><i class="fas fa-clock"></i> 5 min read</span>
+          </div>
+          <h3>How to Find Your Signature Haircut in 2026</h3>
+          <p>Your haircut says a lot about you. Here's how to work with your barber to discover a look that matches your lifestyle, face shape, and personal style.</p>
+          <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="blog-card-link">Read Article <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </article>
+      <article class="blog-card gs">
+        <div class="blog-card-img">
+          <img src="ace_of_fades/ace_of_fades_3.jpg" alt="Beard care essentials">
+          <span class="blog-card-tag">Grooming</span>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-meta">
+            <span><i class="fas fa-calendar"></i> Apr 5, 2026</span>
+            <span><i class="fas fa-clock"></i> 4 min read</span>
+          </div>
+          <h3>Beard Care Guide for Malaysian Weather</h3>
+          <p>Malaysia's humidity can be tough on facial hair. Learn the essential products and techniques to keep your beard sharp all day in tropical heat.</p>
+          <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="blog-card-link">Read Article <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </article>
+      <article class="blog-card gs">
+        <div class="blog-card-img">
+          <img src="ace_of_fades/ace_of_fades_1.jpg" alt="Scalp health">
+          <span class="blog-card-tag">Wellness</span>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-meta">
+            <span><i class="fas fa-calendar"></i> Mar 28, 2026</span>
+            <span><i class="fas fa-clock"></i> 6 min read</span>
+          </div>
+          <h3>Why Scalp Health Is the Foundation of Great Hair</h3>
+          <p>Most men focus on the hair itself but forget the scalp. Our barbers break down why a healthy scalp routine is the secret to better-looking hair.</p>
+          <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="blog-card-link">Read Article <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA ===================== -->
+<section class="section cta-section" id="book">
+  <div class="container">
+    <div class="cta-content">
+      <span class="eyebrow gs">Ready?</span>
+      <h2 class="section-title gs">Your Best Look is <span class="gold-text">One Cut Away</span></h2>
+      <p class="section-sub gs">Walk in or book ahead — choose your branch, pick a time, and let our barbers handle the rest.</p>
+      <div class="cta-buttons gs">
+        <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="btn btn-gold"><i class="fas fa-calendar-check"></i> Schedule Appointment</a>
+        <a href="https://wa.me/60176577316" class="btn" style="background:rgba(255,255,255,0.08);color:#fff;border:1.5px solid rgba(255,255,255,0.2);" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" style="color:#25D366;"></i> WhatsApp Us</a>
+      </div>
+      <div class="cta-info gs">
+        <a href="https://www.facebook.com/aceoffades.ta/" target="_blank" rel="noopener noreferrer" class="cta-info-item"><i class="fab fa-facebook-f"></i> aceoffades.ta</a>
+        <a href="mailto:aceoffades.ta@gmail.com" class="cta-info-item"><i class="fas fa-envelope"></i> aceoffades.ta@gmail.com</a>
+        <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="cta-info-item"><i class="fab fa-instagram"></i> @aceoffades.my</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" style="display:flex;align-items:center;gap:0.5rem;">
+          <img src="ace_of_fades/ace_of_fades_logo.png" alt="Ace of Fades" style="height:30px;">
+          <span style="font-family:var(--font-display);font-size:0.9rem;font-weight:700;color:var(--gold-bright);">Ace of Fades</span>
+        </a>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.facebook.com/aceoffades.ta/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://wa.me/60176577316" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.tiktok.com/@aceoffades.my" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#locations">Locations</a></li>
+          <li><a href="#ai">AI Features</a></li>
+          <li><a href="#payment">Payments</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Gentleman's Cut</a></li>
+          <li><a href="#services">Shave & Shape</a></li>
+          <li><a href="#services">Hair Treatment</a></li>
+          <li><a href="#services">Facial Services</a></li>
+          <li><a href="#services">Hair Colouring</a></li>
+          <li><a href="#services">Junior Cut</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>P-G-13A, Tropicana Avenue, PJ</span></div>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i><span>+60 17-657 7316</span></div>
+        <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>aceoffades.ta@gmail.com</span></div>
+        <div class="footer-contact-item"><i class="fas fa-globe"></i><span>aceoffades.my</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Ace of Fades MY. All rights reserved.</span>
+      <span>Crafted with <i class="fas fa-heart" style="color:var(--gold-bright);font-size:0.6rem;"></i> for the modern gentleman</span>
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button class="back-top" id="backTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+<!-- WHATSAPP CHATBOT -->
+<div class="wa-widget" id="waWidget">
+  <div class="wa-chat" id="waChat">
+    <div class="wa-chat-header">
+      <div class="wa-avatar">
+        <img src="ace_of_fades/ace_of_fades_logo.png" alt="Ace of Fades">
+      </div>
+      <div class="wa-header-info">
+        <h5>Ace of Fades</h5>
+        <div class="wa-online">Online now</div>
+      </div>
+      <button class="wa-close" id="waClose" aria-label="Close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="wa-body">
+      <div class="wa-bubble">
+        Hi there! <strong>&#x1F44B;</strong> Got a question about our services, pricing, or want to book an appointment? We're happy to help!
+        <div class="wa-bubble-time">Just now <i class="fas fa-check-double"></i></div>
+      </div>
+      <div class="wa-typing" id="waTyping">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="wa-bubble wa-bubble2" id="waBubble2">
+        We're open <strong>Mon — Sun, 10 AM — 9 PM</strong> at Tropicana &amp; Subang Jaya. Tap below to chat with us instantly! &#x1F488;
+        <div class="wa-bubble-time">Just now <i class="fas fa-check-double"></i></div>
+      </div>
+    </div>
+    <div class="wa-footer">
+      <div class="wa-input-row">
+        <input type="text" id="waInput" class="wa-input" placeholder="Type a message..." maxlength="200" autocomplete="off">
+        <button id="waSend" class="wa-send-btn" aria-label="Send"><i class="fas fa-paper-plane"></i></button>
+      </div>
+      <a href="https://wa.me/60176577316?text=Hi%20Ace%20of%20Fades%2C%20I%20would%20like%20to%20enquire%20about%20your%20services." target="_blank" rel="noopener noreferrer" class="wa-reply-btn" id="waReplyBtn">
+        <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+      </a>
+    </div>
+  </div>
+  <button class="wa-btn" id="waBtn" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span class="wa-pulse"></span>
+  </button>
+</div>
+
+<script>
+/* ---- Loader ---- */
+window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('loader').classList.add('done'),1500)});
+
+/* ---- Cursor ---- */
+const glow=document.getElementById('cursorGlow');
+if(window.matchMedia('(pointer:fine)').matches){
+  document.addEventListener('mousemove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'});
+}else{glow.style.display='none'}
+
+/* ---- Nav + Top Strip scroll ---- */
+const nav=document.getElementById('nav');
+const topStrip=document.getElementById('topStrip');
+window.addEventListener('scroll',()=>{
+  const s=scrollY>65;
+  nav.classList.toggle('scrolled',s);
+  document.getElementById('backTop').classList.toggle('show',scrollY>400);
+});
+
+/* ---- Mobile nav ---- */
+const toggle=document.getElementById('navToggle'),mob=document.getElementById('navMobile');
+toggle.addEventListener('click',()=>{
+  toggle.classList.toggle('active');mob.classList.toggle('active');
+  document.body.style.overflow=mob.classList.contains('active')?'hidden':'';
+});
+function closeMobile(){toggle.classList.remove('active');mob.classList.remove('active');document.body.style.overflow=''}
+
+/* ---- Back to top ---- */
+document.getElementById('backTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+/* ---- WhatsApp Chatbot ---- */
+const waBtn=document.getElementById('waBtn');
+const waChat=document.getElementById('waChat');
+const waClose=document.getElementById('waClose');
+const waBodyEl=document.querySelector('.wa-body');
+
+function openWaChat(){
+  if(waChat) waChat.classList.add('open');
+  const typing=document.getElementById('waTyping');
+  const bubble2=document.getElementById('waBubble2');
+  if(typing&&bubble2&&bubble2.style.display!=='block'){
+    setTimeout(()=>{
+      if(typing) typing.style.display='none';
+      if(bubble2){bubble2.style.display='block';}
+      if(waBodyEl) waBodyEl.scrollTop=waBodyEl.scrollHeight;
+    },1800);
+  }
+}
+
+if(waBtn&&waChat){
+  waBtn.addEventListener('click',e=>{
+    e.stopPropagation();
+    if(waChat.classList.contains('open')){waChat.classList.remove('open')}
+    else{openWaChat();}
+  });
+  if(waClose) waClose.addEventListener('click',()=>waChat.classList.remove('open'));
+  document.addEventListener('click',e=>{
+    if(!e.target.closest('#waWidget')) waChat.classList.remove('open');
+  });
+}
+
+/* WhatsApp message send */
+const waInput=document.getElementById('waInput');
+const waSend=document.getElementById('waSend');
+const waReplyBtn=document.getElementById('waReplyBtn');
+
+function sendWaMessage(){
+  if(!waInput||!waBodyEl) return;
+  const msg=waInput.value.trim();
+  if(!msg) return;
+  waInput.value='';
+
+  /* User bubble */
+  const userBub=document.createElement('div');
+  userBub.className='wa-user-bubble';
+  userBub.innerHTML=`${msg}<div class="wa-user-bubble-time">Just now <i class="fas fa-check-double" style="color:#4CAF50"></i></div>`;
+  waBodyEl.appendChild(userBub);
+  waBodyEl.scrollTop=waBodyEl.scrollHeight;
+
+  /* Typing indicator */
+  const typingEl=document.createElement('div');
+  typingEl.className='wa-typing';
+  typingEl.innerHTML='<span></span><span></span><span></span>';
+  waBodyEl.appendChild(typingEl);
+  waBodyEl.scrollTop=waBodyEl.scrollHeight;
+
+  /* Reply after delay */
+  setTimeout(()=>{
+    typingEl.remove();
+    const reply=document.createElement('div');
+    reply.className='wa-bubble';
+    reply.innerHTML=`Thanks for reaching out! &#x1F60A; For an instant response tap the button below to connect with us on WhatsApp.<div class="wa-bubble-time">Just now <i class="fas fa-check-double"></i></div>`;
+    waBodyEl.appendChild(reply);
+    /* Pre-fill WA link with user message */
+    if(waReplyBtn) waReplyBtn.href=`https://wa.me/60176577316?text=${encodeURIComponent('Hi Ace of Fades, '+msg)}`;
+    waBodyEl.scrollTop=waBodyEl.scrollHeight;
+  },1600);
+}
+
+if(waSend) waSend.addEventListener('click',sendWaMessage);
+if(waInput) waInput.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendWaMessage();}});
+
+/* Auto-open after 4s on first visit */
+setTimeout(()=>{
+  if(waChat&&!sessionStorage.getItem('waOpened')){
+    sessionStorage.setItem('waOpened','1');
+    openWaChat();
+  }
+},4000);
+
+/* ---- Barbers infinite scroll + hover-pause + arrow nav ---- */
+(function(){
+  const outer=document.querySelector('.barbers-strip-outer');
+  const strip=document.getElementById('barberStrip');
+  if(!outer||!strip) return;
+
+  const GAP=24; /* 1.5rem at 16px */
+  const CARD_W=215+GAP;
+  let pos=0;
+  let paused=false;
+  const SPEED=0.55; /* px per frame */
+
+  function getHalf(){return strip.scrollWidth/2;}
+
+  function tick(){
+    if(!paused){
+      pos+=SPEED;
+      if(pos>=getHalf()) pos=pos-getHalf();
+      strip.style.transform=`translateX(${-pos}px)`;
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  /* Pause on hover of the wrapper */
+  const wrapper=outer.closest('.barbers-nav-wrapper');
+  if(wrapper){
+    wrapper.addEventListener('mouseenter',()=>{paused=true;});
+    wrapper.addEventListener('mouseleave',()=>{paused=false;});
+  }
+
+  /* Arrow navigation */
+  document.getElementById('barberPrev')?.addEventListener('click',()=>{
+    pos=pos-CARD_W;
+    if(pos<0) pos=getHalf()+pos;
+    strip.style.transform=`translateX(${-pos}px)`;
+  });
+  document.getElementById('barberNext')?.addEventListener('click',()=>{
+    pos=pos+CARD_W;
+    if(pos>=getHalf()) pos=pos-getHalf();
+    strip.style.transform=`translateX(${-pos}px)`;
+  });
+})();
+
+/* ============================================================
+   GSAP — bidirectional zoom+slide animations
+   Elements zoom from miniature (scale 0.78) when scrolling
+   into view, and minimize back when scrolling up past them.
+   ============================================================ */
+gsap.registerPlugin(ScrollTrigger);
+
+function reveal(sel,fromVars,stagger){
+  gsap.utils.toArray(sel).forEach((el,i)=>{
+    gsap.fromTo(el,
+      {autoAlpha:0,...fromVars},
+      {
+        autoAlpha:1,y:0,x:0,scale:1,
+        duration:0.72,
+        delay:(stagger||0)*(i%4),
+        ease:'back.out(1.3)',
+        scrollTrigger:{
+          trigger:el,
+          start:'top 90%',
+          toggleActions:'play reverse play reverse'
+        }
+      }
+    );
+  });
+}
+
+/* Section headers — slide + fade */
+reveal('#about .gs',{y:55,scale:0.82},0.1);
+reveal('.services-header .gs',{y:35,scale:0.88},0.08);
+/* Service cards — zoom from miniature, staggered */
+reveal('.service-card.gs',{y:50,scale:0.72},0.07);
+/* Locations */
+reveal('.locations-header .gs',{y:30,scale:0.88},0.08);
+reveal('.loc-branch-bar.gs',{y:20,scale:0.9},0);
+reveal('.loc-card.gs',{y:55,scale:0.75},0.12);
+/* Reviews */
+reveal('.reviews-header .gs',{y:30,scale:0.88},0.08);
+reveal('.review-card.gs',{y:45,scale:0.78},0.1);
+/* AI */
+reveal('.ai-section .gs',{y:30,scale:0.88},0.08);
+reveal('.ai-feature.gs',{x:-35,scale:0.88},0.09);
+reveal('.ai-visual.gs',{scale:0.72,y:30},0);
+/* Payment */
+reveal('.payment-header .gs',{y:30,scale:0.88},0.08);
+reveal('.pay-card.gs',{y:45,scale:0.75},0.1);
+reveal('.payment-note.gs',{y:20},0);
+/* Gallery */
+reveal('.gallery-header .gs',{y:30,scale:0.88},0.08);
+reveal('.gallery-item.gs',{scale:0.72,y:20},0.09);
+/* Blog */
+reveal('.blog-header-row .gs',{y:30,scale:0.88},0.08);
+reveal('.blog-all-link.gs',{y:20,scale:0.9},0);
+reveal('.blog-card.gs',{y:50,scale:0.78},0.1);
+/* CTA */
+reveal('.cta-content .gs',{y:35,scale:0.85},0.09);
+/* Barbers strip */
+reveal('.barbers-header .gs',{y:30,scale:0.88},0.08);
+reveal('.barbers-strip-outer.gs',{y:40,scale:0.92},0);
+
+/* Hero float card */
+gsap.from('#heroReview',{y:35,autoAlpha:0,duration:1.1,delay:1.1,ease:'power3.out'});
+
+/* Parallax hero bg */
+gsap.to('.hero-bg img',{
+  scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1.2},
+  y:110,ease:'none'
+});
+
+/* Counters */
+document.querySelectorAll('[data-count]').forEach(el=>{
+  const t=parseFloat(el.dataset.count),dec=el.hasAttribute('data-decimal'),suf=el.dataset.suffix||'',obj={v:0};
+  gsap.to(obj,{v:t,duration:2,ease:'power2.out',
+    scrollTrigger:{trigger:el,start:'top 85%',toggleActions:'play none none none'},
+    onUpdate:()=>{el.textContent=(dec?obj.v.toFixed(1):Math.round(obj.v))+suf}
+  });
+});
+
+/* Card tilt */
+document.querySelectorAll('.service-card').forEach(c=>{
+  c.addEventListener('mousemove',e=>{
+    const r=c.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-0.5,y=(e.clientY-r.top)/r.height-0.5;
+    gsap.to(c,{rotationY:x*6,rotationX:-y*6,duration:0.3,ease:'power2.out',transformPerspective:600});
+  });
+  c.addEventListener('mouseleave',()=>gsap.to(c,{rotationY:0,rotationX:0,duration:0.45,ease:'power2.out'}));
+});
+
+/* AI floating tags */
+gsap.utils.toArray('.ai-tag').forEach((t,i)=>
+  gsap.to(t,{y:(i%2===0?-1:1)*8,duration:2.2+i*0.35,ease:'sine.inOut',yoyo:true,repeat:-1})
+);
+</script>
+
+</body>
+</html>
+
