@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ace of Fades – Premium Barbershop | Malaysia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+/* ============================================================
+   ROOT — Warm, elegant palette inspired by Project Hairway
+   ============================================================ */
+:root {
+  --brown: #3D2B1F;
+  --brown-light: #5C3D2E;
+  --brown-dark: #2A1B12;
+  --olive: #4A5E3A;
+  --olive-light: #5E7A48;
+  --olive-dark: #3A4D2D;
+  --olive-pale: #E8F0E2;
+  --gold: #A8864A;
+  --gold-bright: #C8A97E;
+  --gold-dark: #7A5F2A;
+  --cream: #FAF8F5;
+  --cream-dark: #F0EBE3;
+  --cream-warm: #F5F0E8;
+  --white: #FFFFFF;
+  --ink: #1A1208;
+  --ink-secondary: #3D3120;
+  --ink-muted: #7A6A52;
+  --ink-faint: #A89878;
+  --border: rgba(61,43,31,0.08);
+  --border-strong: rgba(61,43,31,0.15);
+  --shadow-sm: 0 2px 12px rgba(26,18,8,0.06);
+  --shadow-md: 0 8px 30px rgba(26,18,8,0.08);
+  --shadow-lg: 0 20px 60px rgba(26,18,8,0.1);
+  --container: 1200px;
+  --font-display: 'DM Serif Display', 'Playfair Display', Georgia, serif;
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --ease: cubic-bezier(0.22,1,0.36,1);
+  --ease-out: cubic-bezier(0.16,1,0.3,1);
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px;font-size:16px}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--cream)}
+::-webkit-scrollbar-thumb{background:var(--brown-light);border-radius:6px}
+body{font-family:var(--font-body);color:var(--ink);background:var(--cream);line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+ul{list-style:none}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.container{max-width:var(--container);margin:0 auto;padding:0 2rem}
+.section{padding:clamp(5rem,10vw,8rem) 0;position:relative}
+.section-label{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-size:0.7rem;font-weight:700;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--olive);margin-bottom:1rem;
+}
+.section-label::before{content:'';width:28px;height:2px;background:var(--olive);flex-shrink:0}
+.section-heading{
+  font-family:var(--font-display);
+  font-size:clamp(2.8rem,6vw,5rem);
+  font-weight:400;line-height:1.05;color:var(--ink);
+  margin-bottom:1rem;letter-spacing:-0.02em;
+}
+.section-heading span{color:var(--olive)}
+.section-heading em{font-style:italic;color:var(--ink-muted)}
+.section-desc{
+  font-size:1rem;color:var(--ink-muted);max-width:520px;
+  line-height:1.8;font-weight:400;
+}
+.divider-line{width:80px;height:2px;background:var(--olive);margin:1.5rem 0}
+.gs{opacity:0;transform:scale(0.78) translateY(40px);transition:none}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  padding:0.85rem 2rem;border-radius:4px;font-family:var(--font-body);
+  font-size:0.8rem;font-weight:600;letter-spacing:0.08em;
+  cursor:pointer;border:none;transition:all 0.35s var(--ease);text-transform:uppercase;
+}
+.btn-olive{
+  background:var(--olive);color:#fff;
+}
+.btn-olive:hover{background:var(--olive-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(74,94,58,0.3)}
+.btn-outline{
+  background:transparent;color:var(--ink);
+  border:1.5px solid var(--border-strong);
+}
+.btn-outline:hover{background:var(--cream-dark);border-color:var(--ink);transform:translateY(-2px)}
+.btn-dark{background:var(--brown);color:#fff;border-radius:4px}
+.btn-dark:hover{background:var(--brown-dark);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.btn-white{background:#fff;color:var(--ink);border:1.5px solid var(--border)}
+.btn-white:hover{border-color:var(--ink);transform:translateY(-2px)}
+.btn-arrow{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  font-size:0.78rem;font-weight:600;color:var(--olive);
+  letter-spacing:0.08em;text-transform:uppercase;
+  background:none;border:none;cursor:pointer;padding:0;
+  transition:gap 0.3s var(--ease);
+}
+.btn-arrow:hover{gap:0.7rem}
+.btn-arrow i{font-size:0.65rem;transition:transform 0.3s}
+
+/* ============================================================
+   NAV — Clean, horizontal, white sticky
+   ============================================================ */
+.nav{
+  position:fixed;top:46px;left:0;width:100%;z-index:1000;
+  background:rgba(250,248,245,0.97);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+  transition:all 0.4s var(--ease);
+  padding:0;
+}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  max-width:var(--container);margin:0 auto;padding:0 2rem;
+  height:70px;
+}
+.nav-logo{display:flex;align-items:center;gap:0.6rem}
+.nav-logo img{height:34px;width:auto}
+.nav-logo-text{font-family:var(--font-body);font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--brown)}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-links a{
+  font-size:0.78rem;font-weight:500;letter-spacing:0.04em;
+  color:var(--ink-muted);transition:color 0.3s;
+}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{
+  padding:0.65rem 1.8rem;font-size:0.72rem;
+  font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  background:var(--olive);color:#fff;
+  transition:all 0.3s var(--ease);display:inline-flex;align-items:center;gap:0.5rem;
+}
+.nav-cta:hover{background:var(--olive-dark);box-shadow:0 4px 16px rgba(74,94,58,0.3)}
+.nav-cta i{font-size:0.65rem}
+/* Mobile toggle */
+.nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--brown);border-radius:2px;transition:all 0.3s}
+.nav-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.nav-toggle.active span:nth-child(2){opacity:0}
+.nav-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.nav-mobile{
+  display:none;position:fixed;top:0;left:0;width:100%;height:100vh;
+  background:rgba(250,248,245,0.98);backdrop-filter:blur(20px);
+  z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2rem;
+}
+.nav-mobile.active{display:flex}
+.nav-mobile a{font-family:var(--font-display);font-size:1.6rem;color:var(--ink);transition:color 0.3s}
+.nav-mobile a:hover{color:var(--olive)}
+
+/* ============================================================
+   HERO — Large serif heading with image right
+   ============================================================ */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  background:var(--cream);position:relative;overflow:hidden;
+  padding-top:116px;
+}
+.hero::before{
+  content:'';position:absolute;top:0;right:0;width:50%;height:100%;
+  background:var(--cream-warm);z-index:0;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+  position:relative;z-index:1;
+}
+.hero-content{padding:3rem 0}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  padding:0.35rem 1rem;border-radius:50px;
+  background:var(--olive-pale);border:1px solid rgba(74,94,58,0.15);
+  font-size:0.68rem;font-weight:600;color:var(--olive);
+  letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1.8rem;
+}
+.hero-badge i{font-size:0.55rem}
+.hero-title{
+  font-family:var(--font-display);
+  font-size:clamp(3rem,5.5vw,4.5rem);
+  font-weight:400;line-height:1.08;color:var(--ink);
+  margin-bottom:1.2rem;letter-spacing:-0.01em;
+}
+.hero-title .accent{color:var(--olive)}
+.hero-title .italic{font-style:italic;color:var(--ink-muted)}
+.hero-desc{
+  font-size:1rem;color:var(--ink-muted);max-width:460px;
+  line-height:1.85;margin-bottom:2.2rem;font-weight:400;
+}
+.hero-buttons{display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:2rem}
+.hero-stats{display:flex;gap:2.5rem;padding-top:2rem;border-top:1px solid var(--border)}
+.hero-stat h4{font-family:var(--font-display);font-size:2rem;color:var(--olive);margin-bottom:0.15rem}
+.hero-stat p{font-size:0.72rem;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.08em;font-weight:500}
+.hero-image{position:relative}
+.hero-image-main{border-radius:12px;overflow:hidden;height:560px;box-shadow:var(--shadow-lg)}
+.hero-image-main img{width:100%;height:100%;object-fit:cover}
+.hero-image-accent{
+  position:absolute;bottom:-2rem;left:-3rem;
+  width:200px;height:200px;border-radius:12px;overflow:hidden;
+  border:6px solid var(--cream);box-shadow:var(--shadow-md);
+}
+.hero-image-accent img{width:100%;height:100%;object-fit:cover}
+.hero-float-review{
+  position:absolute;top:2rem;right:-1.5rem;z-index:2;
+  padding:1rem 1.2rem;background:#fff;border-radius:12px;
+  box-shadow:var(--shadow-md);border:1px solid var(--border);
+}
+.hero-float-review .rating{font-family:var(--font-display);font-size:1.6rem;color:var(--ink);margin-bottom:0.15rem}
+.hero-float-review .stars{color:var(--olive);font-size:0.6rem;letter-spacing:2px;margin-bottom:0.2rem}
+.hero-float-review .label{font-size:0.65rem;color:var(--ink-muted)}
+
+/* ============================================================
+   MARQUEE — Service ticker
+   ============================================================ */
+.marquee{padding:1rem 0;overflow:hidden;background:var(--brown);border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05)}
+.marquee-track{display:flex;gap:2.5rem;white-space:nowrap;animation:mScroll 25s linear infinite}
+.marquee-item{display:flex;align-items:center;gap:0.8rem;font-family:var(--font-display);font-size:0.85rem;font-weight:400;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:0.06em;flex-shrink:0}
+.marquee-item .sep{width:5px;height:5px;background:var(--olive-light);border-radius:50%;opacity:0.6}
+@keyframes mScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ============================================================
+   ABOUT / OUR STORY — Two column, text + image
+   ============================================================ */
+.story-section{background:var(--white)}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.story-image-wrap{position:relative}
+.story-image-main{border-radius:12px;overflow:hidden;height:500px}
+.story-image-main img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s var(--ease)}
+.story-image-main:hover img{transform:scale(1.03)}
+.story-image-badge{
+  position:absolute;bottom:1.5rem;left:1.5rem;
+  background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);
+  border:1px solid var(--border);padding:0.7rem 1.1rem;border-radius:8px;
+  display:flex;align-items:center;gap:0.5rem;
+  font-size:0.75rem;font-weight:600;color:var(--ink);box-shadow:var(--shadow-sm);
+}
+.story-image-badge i{color:var(--olive);font-size:0.85rem}
+.story-text .section-desc{margin-bottom:1.5rem}
+.story-values{display:flex;flex-direction:column;gap:0.65rem;margin-bottom:2rem}
+.story-value{display:flex;align-items:center;gap:0.7rem;font-size:0.88rem;color:var(--ink-secondary)}
+.story-value i{color:var(--olive);font-size:0.72rem;width:20px;text-align:center}
+.story-stats{
+  display:flex;gap:0;padding:1.5rem 0;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.story-stat{flex:1;text-align:center;position:relative}
+.story-stat+.story-stat::before{content:'';position:absolute;left:0;top:15%;height:70%;width:1px;background:var(--border)}
+.story-stat h3{font-family:var(--font-display);font-size:2.2rem;color:var(--olive)}
+.story-stat p{font-size:0.7rem;color:var(--ink-muted);margin-top:0.15rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:500}
+
+/* ============================================================
+   SERVICES — Tab-based layout (PH style)
+   ============================================================ */
+.services-section{background:var(--cream)}
+.services-layout{display:grid;grid-template-columns:280px 1fr;gap:3rem;align-items:start}
+.services-tabs{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;position:sticky;top:90px}
+.services-tab{
+  padding:1.1rem 1.5rem;font-size:0.82rem;font-weight:700;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--ink-muted);background:var(--white);
+  cursor:pointer;border:none;border-bottom:1px solid var(--border);
+  transition:all 0.3s;text-align:left;font-family:var(--font-body);
+}
+.services-tab:last-child{border-bottom:none}
+.services-tab:hover{color:var(--ink);background:var(--cream-dark)}
+.services-tab.active{color:var(--olive);background:var(--olive-pale);border-left:3px solid var(--olive)}
+.services-content{min-height:400px}
+.services-panel{display:none}
+.services-panel.active{display:block}
+.services-panel-title{
+  font-family:var(--font-display);font-size:clamp(3rem,5vw,4.5rem);
+  color:var(--ink-muted);opacity:0.15;line-height:1;margin-bottom:2rem;
+  letter-spacing:-0.02em;
+}
+.service-row{
+  display:flex;align-items:baseline;justify-content:space-between;
+  padding:0.9rem 0;border-bottom:1px solid var(--border);
+  transition:all 0.3s;
+}
+.service-row:hover{padding-left:0.5rem}
+.service-row:last-child{border-bottom:none}
+.service-name{font-size:1rem;font-weight:500;color:var(--ink)}
+.service-price{font-family:var(--font-display);font-size:1.1rem;color:var(--olive);font-weight:400}
+.service-price .currency{font-size:0.75rem;color:var(--ink-muted);font-family:var(--font-body)}
+.services-cta{display:flex;gap:0.8rem;margin-top:2rem}
+/* Decorative mustache */
+.services-deco{
+  margin-top:2rem;opacity:0.06;font-size:5rem;color:var(--ink);
+  text-align:center;line-height:1;
+}
+
+/* ============================================================
+   BARBERS — Card layout with photos
+   ============================================================ */
+.barbers-section{background:var(--white);overflow:hidden}
+.barbers-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem}
+.barbers-header .section-heading{margin-bottom:0}
+.barbers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.barber-card{
+  position:relative;border-radius:12px;overflow:hidden;
+  background:var(--cream);transition:all 0.4s var(--ease);cursor:pointer;
+}
+.barber-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg)}
+.barber-card-img{height:340px;overflow:hidden;position:relative}
+.barber-card-img img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform 0.5s var(--ease)}
+.barber-card:hover .barber-card-img img{transform:scale(1.05)}
+.barber-card-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(26,18,8,0.75) 0%,transparent 50%);
+  opacity:0;transition:opacity 0.4s;
+}
+.barber-card:hover .barber-card-overlay{opacity:1}
+.barber-card-body{padding:1.2rem 1.3rem}
+.barber-card-body h3{font-family:var(--font-display);font-size:1.15rem;color:var(--ink);margin-bottom:0.15rem}
+.barber-card-role{font-size:0.75rem;color:var(--olive);font-style:italic;margin-bottom:0.4rem}
+.barber-card-exp{
+  display:inline-flex;align-items:center;gap:0.3rem;
+  font-size:0.65rem;color:var(--ink-muted);
+  background:var(--cream-dark);padding:0.2rem 0.6rem;border-radius:50px;
+}
+.barber-card-exp i{color:var(--olive);font-size:0.55rem}
+.barber-card-desc{
+  font-size:0.78rem;color:var(--ink-muted);line-height:1.65;
+  margin-top:0.65rem;padding-top:0.65rem;border-top:1px solid var(--border);
+}
+
+/* ============================================================
+   REVIEWS — Google Reviews style (PH style)
+   ============================================================ */
+.reviews-section{background:var(--cream)}
+.reviews-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:2.5rem;flex-wrap:wrap;gap:1.5rem}
+.reviews-big-title{font-family:var(--font-display);font-size:clamp(3rem,6vw,5.5rem);color:var(--ink-muted);opacity:0.12;line-height:1}
+.reviews-summary{
+  display:flex;align-items:center;gap:1.5rem;
+  padding:1rem 2rem;background:var(--white);border-radius:8px;
+  border:1px solid var(--border);
+}
+.reviews-summary .big-num{font-family:var(--font-display);font-size:2.5rem;color:var(--ink)}
+.reviews-summary .stars{color:var(--olive);font-size:0.7rem;letter-spacing:2px}
+.reviews-summary .info{font-size:0.75rem;color:var(--ink-muted)}
+.reviews-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.review-card{
+  background:var(--white);border:1px solid var(--border);border-radius:10px;
+  padding:1.5rem;transition:all 0.3s var(--ease);
+}
+.review-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--border-strong)}
+.review-card .stars{color:var(--olive);font-size:0.65rem;letter-spacing:2px;margin-bottom:0.8rem}
+.review-card .text{font-size:0.85rem;color:var(--ink-secondary);line-height:1.7;margin-bottom:1.2rem}
+.review-card .author{display:flex;align-items:center;gap:0.6rem}
+.review-card .avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--cream-dark);border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:0.9rem;font-weight:700;color:var(--olive);flex-shrink:0;
+}
+.review-card .author-name{font-size:0.8rem;font-weight:600;color:var(--ink)}
+.review-card .author-sub{font-size:0.68rem;color:var(--ink-muted)}
+.review-card .platform{margin-left:auto;font-size:0.7rem;color:var(--ink-faint)}
+
+/* ============================================================
+   GALLERY — Masonry-like grid
+   ============================================================ */
+.gallery-section{background:var(--white);overflow:hidden}
+.gallery-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.5rem}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.gallery-item{
+  position:relative;border-radius:10px;overflow:hidden;
+  cursor:pointer;
+}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s var(--ease)}
+.gallery-item:hover img{transform:scale(1.05)}
+.gallery-item:nth-child(1){grid-row:span 2}
+.gallery-item:nth-child(1) img{height:100%}
+.gallery-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(26,18,8,0.55) 0%,transparent 50%);
+  opacity:0;transition:opacity 0.35s;display:flex;align-items:flex-end;padding:1.2rem;
+}
+.gallery-item:hover .gallery-overlay{opacity:1}
+.gallery-overlay span{font-size:0.78rem;font-weight:500;color:#fff}
+
+/* ============================================================
+   BLOG SECTION
+   ============================================================ */
+.blog-section{background:var(--cream)}
+.blog-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.blog-card{
+  background:var(--white);border:1px solid var(--border);border-radius:12px;
+  overflow:hidden;transition:all 0.4s var(--ease);
+}
+.blog-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--border-strong)}
+.blog-card-img{height:220px;overflow:hidden;position:relative}
+.blog-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s var(--ease)}
+.blog-card:hover .blog-card-img img{transform:scale(1.06)}
+.blog-card-tag{
+  position:absolute;top:1rem;left:1rem;
+  padding:0.25rem 0.7rem;border-radius:4px;
+  background:var(--olive);color:#fff;
+  font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+}
+.blog-card-body{padding:1.5rem}
+.blog-card-meta{font-size:0.7rem;color:var(--ink-muted);margin-bottom:0.6rem;display:flex;align-items:center;gap:0.8rem}
+.blog-card-meta span{display:flex;align-items:center;gap:0.3rem}
+.blog-card-meta i{font-size:0.58rem;color:var(--olive)}
+.blog-card-body h3{
+  font-family:var(--font-heading);font-size:1.15rem;font-weight:600;
+  color:var(--ink);margin-bottom:0.5rem;line-height:1.35;
+  transition:color 0.3s;
+}
+.blog-card:hover .blog-card-body h3{color:var(--olive)}
+.blog-card-body p{font-size:0.82rem;color:var(--ink-muted);line-height:1.7;margin-bottom:1rem}
+.blog-card-link{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  font-size:0.72rem;font-weight:600;color:var(--olive);
+  letter-spacing:0.06em;text-transform:uppercase;
+  transition:gap 0.3s;
+}
+.blog-card:hover .blog-card-link{gap:0.7rem}
+.blog-card-link i{font-size:0.58rem}
+
+/* ============================================================
+   LOCATIONS — Card style (PH style)
+   ============================================================ */
+.locations-section{background:var(--white)}
+.locations-heading-wrap{margin-bottom:3rem}
+.locations-heading-big{
+  font-family:var(--font-display);
+  font-size:clamp(3.5rem,7vw,6rem);
+  color:var(--ink-muted);opacity:0.1;line-height:1;margin-bottom:-1.5rem;
+}
+.locations-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;align-items:stretch}
+.loc-card{
+  background:var(--cream);border:1px solid var(--border);border-radius:12px;
+  overflow:hidden;transition:all 0.3s var(--ease);
+  display:flex;flex-direction:column;
+}
+.loc-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-strong)}
+.loc-card-map{width:100%;height:200px;border:none;display:block}
+.loc-card-body{padding:2rem;flex:1;display:flex;flex-direction:column}
+.loc-card-body .loc-actions{margin-top:auto;padding-top:1.2rem}
+.loc-card h3{font-family:var(--font-display);font-size:1.6rem;color:var(--ink);margin-bottom:0.8rem}
+.loc-card .loc-address{font-size:0.88rem;color:var(--ink-muted);line-height:1.6;margin-bottom:1rem}
+.loc-card .loc-contact{margin-bottom:1.2rem}
+.loc-card .loc-contact-row{
+  display:flex;align-items:center;gap:0.5rem;
+  font-size:0.82rem;color:var(--ink-secondary);margin-bottom:0.4rem;
+}
+.loc-card .loc-contact-row i{color:var(--olive);width:16px;text-align:center;font-size:0.72rem}
+.loc-card .loc-contact-row strong{font-weight:600;color:var(--ink-muted);min-width:50px}
+.loc-hours-row{
+  display:flex;align-items:center;gap:0.5rem;
+  padding:0.8rem 0;border-top:1px solid var(--border);
+  font-size:0.82rem;color:var(--ink-muted);
+}
+.loc-hours-row i{color:var(--olive);font-size:0.72rem}
+.loc-status-badge{
+  display:inline-flex;align-items:center;gap:0.3rem;
+  padding:0.2rem 0.6rem;border-radius:50px;
+  background:var(--olive-pale);color:var(--olive);
+  font-size:0.62rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+  margin-bottom:1rem;
+}
+.loc-status-badge .dot{width:6px;height:6px;background:var(--olive);border-radius:50%;animation:locPulse 2s ease infinite}
+@keyframes locPulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.loc-card .loc-actions{display:flex;gap:0.6rem}
+.loc-btn-book{
+  flex:1;padding:0.75rem 0.5rem;border-radius:6px;text-align:center;
+  font-size:0.7rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;
+  background:var(--olive);color:#fff;transition:all 0.3s;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:0.35rem;
+}
+.loc-btn-book:hover{background:var(--olive-dark);box-shadow:0 4px 16px rgba(74,94,58,0.25)}
+.loc-btn-dir{
+  flex:1;padding:0.75rem 0.5rem;border-radius:6px;text-align:center;
+  font-size:0.7rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;
+  background:transparent;color:var(--ink);border:1.5px solid var(--border-strong);
+  transition:all 0.3s;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:0.35rem;
+}
+.loc-btn-dir:hover{border-color:var(--ink);background:var(--cream-dark)}
+
+/* ============================================================
+   CTA — Dark band
+   ============================================================ */
+.cta-section{
+  background:var(--brown);position:relative;overflow:hidden;
+  padding:clamp(4rem,8vw,6rem) 0;
+}
+.cta-section::before{
+  content:'';position:absolute;top:-50%;right:-10%;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(74,94,58,0.08) 0%,transparent 70%);
+}
+.cta-deco{
+  position:absolute;top:50%;right:3rem;transform:translateY(-50%);
+  opacity:0.03;font-size:12rem;color:#fff;font-family:var(--font-display);
+  line-height:1;pointer-events:none;
+}
+.cta-inner{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1;gap:3rem}
+.cta-text{max-width:580px}
+.cta-text .section-label{color:var(--olive-light)}
+.cta-text .section-label::before{background:var(--olive-light)}
+.cta-text .section-heading{color:#fff;font-size:clamp(2.2rem,4vw,3.2rem)}
+.cta-text .section-desc{color:rgba(245,240,235,0.55)}
+.cta-buttons{display:flex;gap:0.8rem;margin-top:2rem;flex-wrap:wrap}
+.cta-contact{display:flex;gap:2rem;margin-top:1.8rem;flex-wrap:wrap}
+.cta-contact a{
+  display:flex;align-items:center;gap:0.4rem;
+  font-size:0.78rem;color:rgba(245,240,235,0.5);transition:color 0.3s;
+}
+.cta-contact a:hover{color:var(--olive-light)}
+.cta-contact i{color:var(--olive-light);font-size:0.72rem}
+
+/* ============================================================
+   INSTAGRAM FEED — Full width carousel
+   ============================================================ */
+.insta-section{background:var(--brown-dark);padding:3rem 0 0;overflow:hidden}
+.insta-header{
+  display:flex;align-items:center;gap:0.6rem;
+  padding:0 2rem;margin-bottom:1.5rem;
+  font-size:0.82rem;font-weight:600;color:rgba(255,255,255,0.7);
+}
+.insta-header i{color:var(--olive-light);font-size:1rem}
+.insta-track-outer{overflow:hidden}
+.insta-track{
+  display:flex;gap:0.5rem;width:max-content;
+  animation:instaScroll 40s linear infinite;
+}
+.insta-track:hover{animation-play-state:paused}
+.insta-item{
+  flex-shrink:0;width:280px;height:280px;overflow:hidden;
+  position:relative;cursor:pointer;
+}
+.insta-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s var(--ease);filter:brightness(0.9)}
+.insta-item:hover img{transform:scale(1.06);filter:brightness(1)}
+@keyframes instaScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ============================================================
+   FOOTER — Clean minimal
+   ============================================================ */
+.footer{background:var(--cream);border-top:1px solid var(--border);padding:3.5rem 0 1.5rem}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1px 2fr;gap:3rem;margin-bottom:2.5rem;align-items:start}
+.footer-divider{background:var(--border);width:1px;height:100%}
+.footer-brand .footer-logo{display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem}
+.footer-brand .footer-logo img{height:30px}
+.footer-brand .footer-logo-text{font-family:var(--font-body);font-size:0.7rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--brown)}
+.footer-brand p{font-size:0.82rem;color:var(--ink-muted);line-height:1.75;max-width:300px;margin-bottom:1.2rem}
+.footer-social{display:flex;gap:0.6rem}
+.footer-social a{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--cream-dark);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ink-muted);font-size:0.82rem;transition:all 0.3s;
+}
+.footer-social a:hover{background:var(--olive);color:#fff;border-color:var(--olive);transform:translateY(-2px)}
+.footer-right{display:flex;gap:3rem}
+.footer-col h4{font-size:0.68rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--brown);margin-bottom:1rem}
+.footer-col ul li{margin-bottom:0.45rem}
+.footer-col ul li a{font-size:0.82rem;color:var(--ink-muted);transition:color 0.3s}
+.footer-col ul li a:hover{color:var(--olive)}
+.footer-contact-row{display:flex;gap:0.45rem;margin-bottom:0.5rem;font-size:0.82rem;color:var(--ink-muted)}
+.footer-contact-row i{color:var(--olive);width:14px;text-align:center;margin-top:0.2rem;font-size:0.7rem}
+.footer-bottom{
+  padding-top:1.5rem;border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:0.72rem;color:var(--ink-faint);
+}
+
+/* ============================================================
+   WHATSAPP WIDGET
+   ============================================================ */
+.wa-float{
+  position:fixed;bottom:1.5rem;right:1.5rem;z-index:900;
+  width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;box-shadow:0 4px 20px rgba(37,211,102,0.4);
+  transition:all 0.3s var(--ease);cursor:pointer;border:none;
+}
+.wa-float:hover{transform:scale(1.08);box-shadow:0 8px 30px rgba(37,211,102,0.5)}
+
+/* BACK TO TOP */
+.back-top{
+  position:fixed;bottom:1.5rem;left:1.5rem;z-index:900;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--brown);color:#fff;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.72rem;opacity:0;visibility:hidden;
+  transition:all 0.35s var(--ease);box-shadow:var(--shadow-md);
+}
+.back-top.show{opacity:1;visibility:visible}
+.back-top:hover{transform:translateY(-2px);background:var(--olive)}
+
+/* ============================================================
+   TOP STRIP
+   ============================================================ */
+.top-strip{
+  position:fixed;top:0;left:0;width:100%;z-index:1001;
+  background:var(--brown);height:46px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  transition:transform 0.4s var(--ease);
+}
+/* .top-strip.hidden removed — top bar stays visible during scroll */
+.top-strip-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  height:100%;gap:1.2rem;
+}
+.top-strip-left{display:flex;align-items:center;gap:1.6rem;flex:1;min-width:0}
+.top-strip-left a,.top-strip-left span{
+  display:flex;align-items:center;gap:0.4rem;
+  font-size:0.84rem;color:rgba(245,240,235,0.82);
+  letter-spacing:0.02em;white-space:nowrap;transition:color 0.3s;
+}
+.top-strip-left a:hover{color:#fff}
+.top-strip-left i{color:var(--olive-light);font-size:0.82rem;flex-shrink:0}
+.top-strip-right{display:flex;align-items:center;gap:0.5rem;flex-shrink:0}
+.top-strip-right a{
+  width:28px;height:28px;border-radius:5px;
+  background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(245,240,235,0.55);font-size:0.78rem;transition:all 0.3s;
+}
+.top-strip-right a:hover{background:rgba(255,255,255,0.15);color:#fff}
+.top-strip-sep{width:1px;height:18px;background:rgba(255,255,255,0.14);flex-shrink:0}
+@media(max-width:768px){
+  .top-strip{display:none}
+  .nav{top:0 !important}
+  .hero{padding-top:70px !important}
+}
+@media(max-width:480px){
+  .top-strip-left a:nth-child(n+3){display:none}
+  .top-strip-left span{display:none}
+}
+
+/* ============================================================
+   WA CHATBOT
+   ============================================================ */
+.wa-widget{position:fixed;bottom:1.5rem;right:1.5rem;z-index:950}
+.wa-btn-float{
+  width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;box-shadow:0 4px 20px rgba(37,211,102,0.4);
+  transition:all 0.3s var(--ease);cursor:pointer;border:none;
+  position:relative;
+}
+.wa-btn-float:hover{transform:scale(1.08);box-shadow:0 8px 30px rgba(37,211,102,0.5)}
+.wa-pulse-dot{
+  position:absolute;top:2px;right:2px;width:12px;height:12px;
+  background:#4CAF50;border-radius:50%;border:2px solid var(--cream);
+  animation:waPulse 2.2s ease-in-out infinite;
+}
+@keyframes waPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.7);opacity:0.35}}
+.wa-popup{
+  position:absolute;bottom:68px;right:0;
+  width:300px;background:var(--white);
+  border-radius:16px;box-shadow:0 20px 60px rgba(26,18,8,0.15);
+  border:1px solid var(--border);overflow:hidden;
+  opacity:0;visibility:hidden;transform:translateY(14px) scale(0.94);
+  transform-origin:bottom right;transition:all 0.35s var(--ease);
+  pointer-events:none;
+}
+.wa-popup.open{opacity:1;visibility:visible;transform:translateY(0) scale(1);pointer-events:all}
+.wa-popup-header{
+  background:linear-gradient(135deg,#075E54,#128C7E);
+  padding:0.85rem 1rem;display:flex;align-items:center;gap:0.7rem;
+}
+.wa-popup-avatar{
+  width:40px;height:40px;border-radius:50%;overflow:hidden;
+  border:2px solid rgba(255,255,255,0.25);flex-shrink:0;
+}
+.wa-popup-avatar img{width:100%;height:100%;object-fit:cover}
+.wa-popup-info{flex:1}
+.wa-popup-info h5{font-size:0.85rem;font-weight:600;color:#fff;margin-bottom:0.1rem}
+.wa-popup-online{
+  display:flex;align-items:center;gap:0.3rem;
+  font-size:0.62rem;color:rgba(255,255,255,0.7);
+}
+.wa-popup-online::before{content:'';width:6px;height:6px;background:#4CAF50;border-radius:50%;flex-shrink:0;animation:waPulse 2s ease infinite}
+.wa-popup-close{
+  background:none;border:none;cursor:pointer;
+  color:rgba(255,255,255,0.6);font-size:0.9rem;padding:0.25rem;
+  transition:color 0.3s;flex-shrink:0;
+}
+.wa-popup-close:hover{color:#fff}
+.wa-popup-body{padding:1rem;background:#ECE5DD;min-height:110px;display:flex;flex-direction:column;gap:0.6rem}
+.wa-msg{
+  background:#fff;border-radius:0 10px 10px 10px;
+  padding:0.65rem 0.85rem;max-width:90%;
+  font-size:0.76rem;color:var(--ink);line-height:1.55;
+  box-shadow:0 1px 3px rgba(0,0,0,0.08);position:relative;
+}
+.wa-msg::before{
+  content:'';position:absolute;top:0;left:-7px;
+  border:7px solid transparent;
+  border-right-color:#fff;border-top-color:#fff;
+}
+.wa-msg-time{font-size:0.58rem;color:#999;text-align:right;margin-top:0.3rem;display:flex;align-items:center;justify-content:flex-end;gap:0.2rem}
+.wa-msg-time i{font-size:0.5rem;color:#4CAF50}
+.wa-typing{
+  display:none;background:#fff;border-radius:0 10px 10px 10px;
+  padding:0.55rem 0.85rem;max-width:70px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.08);
+}
+.wa-typing.show{display:block}
+.wa-dots{display:flex;align-items:center;gap:4px;height:16px}
+.wa-dots span{
+  width:7px;height:7px;background:#aaa;border-radius:50%;
+  animation:waDot 1.2s ease-in-out infinite;
+}
+.wa-dots span:nth-child(2){animation-delay:0.2s}
+.wa-dots span:nth-child(3){animation-delay:0.4s}
+@keyframes waDot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.wa-popup-footer{padding:0.65rem 0.8rem;border-top:1px solid var(--border);background:#f0f0f0}
+.wa-input-row{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.55rem}
+.wa-input{
+  flex:1;padding:0.55rem 0.8rem;
+  border:1px solid #ddd;border-radius:20px;
+  font-family:var(--font-body);font-size:0.76rem;color:var(--ink);
+  background:#fff;outline:none;transition:border-color 0.3s;
+}
+.wa-input:focus{border-color:#25D366}
+.wa-input-send{
+  width:34px;height:34px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  color:#fff;border:none;display:flex;align-items:center;justify-content:center;
+  font-size:0.85rem;cursor:pointer;transition:all 0.3s;
+}
+.wa-input-send:hover{transform:scale(1.1);box-shadow:0 4px 12px rgba(37,211,102,0.35)}
+.wa-send-btn{
+  display:flex;align-items:center;justify-content:center;gap:0.5rem;
+  width:100%;padding:0.6rem;
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  color:#fff;border:none;border-radius:8px;
+  font-family:var(--font-body);font-size:0.74rem;font-weight:600;
+  cursor:pointer;transition:all 0.3s;letter-spacing:0.03em;
+  text-decoration:none;
+}
+.wa-send-btn:hover{box-shadow:0 4px 16px rgba(37,211,102,0.35);transform:translateY(-1px)}
+.wa-send-btn i{font-size:0.95rem}
+.wa-user-msg{
+  background:#DCF8C6;border-radius:10px 10px 0 10px;
+  padding:0.55rem 0.75rem;max-width:85%;margin-left:auto;
+  font-size:0.74rem;color:var(--ink);line-height:1.5;
+  box-shadow:0 1px 3px rgba(0,0,0,0.08);position:relative;
+}
+.wa-user-msg-time{font-size:0.56rem;color:#999;text-align:right;margin-top:0.25rem;display:flex;align-items:center;justify-content:flex-end;gap:0.2rem}
+.wa-user-msg-time i{font-size:0.5rem;color:#4CAF50}
+
+/* ============================================================
+   LOADER
+   ============================================================ */
+.loader{
+  position:fixed;inset:0;z-index:10000;background:var(--cream);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity 0.6s var(--ease),visibility 0.6s;
+}
+.loader.done{opacity:0;visibility:hidden;pointer-events:none}
+.loader img{width:50px;margin-bottom:1.5rem;animation:lPulse 1.2s ease-in-out infinite}
+@keyframes lPulse{0%,100%{opacity:0.4;transform:scale(0.95)}50%{opacity:1;transform:scale(1)}}
+.loader-bar{width:100px;height:2px;background:var(--cream-dark);border-radius:2px;overflow:hidden}
+.loader-bar span{display:block;width:0;height:100%;background:var(--olive);border-radius:2px;animation:lFill 1.3s var(--ease) forwards}
+@keyframes lFill{to{width:100%}}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:1024px){
+  .hero-grid,.story-grid{grid-template-columns:1fr;gap:3rem}
+  .hero-image{order:-1}
+  .hero-image-accent{display:none}
+  .hero-float-review{display:none}
+  .services-layout{grid-template-columns:1fr}
+  .services-tabs{flex-direction:row;flex-wrap:wrap;position:static}
+  .services-tab{flex:1;min-width:120px;text-align:center;border-bottom:none;border-right:1px solid var(--border)}
+  .services-tab:last-child{border-right:none}
+  .barbers-grid{grid-template-columns:repeat(2,1fr)}
+  .reviews-grid{grid-template-columns:repeat(2,1fr)}
+  .blog-grid{grid-template-columns:repeat(2,1fr)}
+  .locations-grid{grid-template-columns:1fr}
+  .cta-inner{flex-direction:column;text-align:center}
+  .cta-text .section-desc{margin:0 auto}
+  .cta-buttons{justify-content:center}
+  .cta-contact{justify-content:center}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-divider{display:none}
+  .gallery-grid .gallery-item:nth-child(1){grid-row:span 1}
+}
+@media(max-width:768px){
+  html{font-size:15px}
+  .nav-links,.nav-cta{display:none}
+  .nav-toggle{display:flex}
+  .barbers-grid{grid-template-columns:1fr 1fr}
+  .reviews-grid{grid-template-columns:1fr}
+  .blog-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr 1fr}
+  .hero-stats{flex-wrap:wrap;gap:1.5rem}
+  .footer-right{flex-direction:column;gap:2rem}
+  .footer-bottom{flex-direction:column;gap:0.5rem;text-align:center}
+  .services-tab{padding:0.8rem 1rem;font-size:0.7rem}
+  .barbers-header{flex-direction:column;align-items:flex-start;gap:1rem}
+  .gallery-header{flex-direction:column;align-items:flex-start;gap:1rem}
+  .blog-header{flex-direction:column;align-items:flex-start;gap:1rem}
+}
+@media(max-width:480px){
+  .container{padding:0 1.2rem}
+  .hero-buttons{flex-direction:column}
+  .hero-buttons .btn{width:100%;justify-content:center}
+  .hero-stats{flex-direction:column;gap:1rem;text-align:left}
+  .hero-stat{text-align:left}
+  .barbers-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr}
+  .cta-buttons{flex-direction:column;align-items:center}
+  .cta-buttons .btn{width:100%;justify-content:center}
+  .loc-card .loc-actions{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP STRIP -->
+<div class="top-strip" id="topStrip">
+  <div class="container">
+    <div class="top-strip-inner">
+      <div class="top-strip-left">
+        <a href="tel:+60176577316"><i class="fas fa-phone"></i> +60 17-657 7316</a>
+        <a href="mailto:aceoffades.ta@gmail.com"><i class="fas fa-envelope"></i> aceoffades.ta@gmail.com</a>
+        <span><i class="fas fa-map-marker-alt"></i> Tropicana Ave PJ &amp; Subang Jaya</span>
+      </div>
+      <div class="top-strip-sep"></div>
+      <div class="top-strip-right">
+        <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/aceoffades.ta/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.tiktok.com/@aceoffades.my" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://wa.me/60176577316" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <img src="ace_of_fades/ace_of_fades_logo.png" alt="Ace of Fades">
+  <div class="loader-bar"><span></span></div>
+</div>
+
+<!-- ===================== NAV ===================== -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="ace_of_fades/ace_of_fades_logo.png" alt="Ace of Fades">
+      <span class="nav-logo-text">Ace of Fades</span>
+    </a>
+    <div class="nav-links">
+      <a href="#story">About</a>
+      <a href="#services">Services</a>
+      <a href="#barbers">Team</a>
+      <a href="#locations">Locations</a>
+      <a href="#blog">Blog</a>
+      <a href="#gallery">Gallery</a>
+    </div>
+    <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="nav-cta">Book Now <i class="fas fa-arrow-right"></i></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="#story" onclick="closeMobile()">About</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#barbers" onclick="closeMobile()">Team</a>
+  <a href="#locations" onclick="closeMobile()">Locations</a>
+  <a href="#blog" onclick="closeMobile()">Blog</a>
+  <a href="#gallery" onclick="closeMobile()">Gallery</a>
+  <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="btn btn-olive" style="margin-top:1rem" onclick="closeMobile()">Book Now</a>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge"><i class="fas fa-crown"></i> Premium Barbershop &middot; Klang Valley</div>
+        <h1 class="hero-title">
+          Premium Grooming for the <span class="italic">Modern</span> <span class="accent">Gentleman.</span>
+        </h1>
+        <p class="hero-desc">Where classic barbering meets contemporary style — premium haircuts, beard care, and grooming tailored for today's man.</p>
+        <div class="hero-buttons">
+          <a href="#services" class="btn btn-outline">Explore Services</a>
+          <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="btn btn-olive">Book Now <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><h4>5.0</h4><p>Google Rating</p></div>
+          <div class="hero-stat"><h4>3</h4><p>Locations</p></div>
+          <div class="hero-stat"><h4>8+</h4><p>Services</p></div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="hero-image-main">
+          <img src="ace_of_fades/ace_of_fades_hero.png" alt="Ace of Fades Barbershop">
+        </div>
+        <div class="hero-image-accent">
+          <img src="ace_of_fades/ace_of_fades_2.jpg" alt="Barbershop Interior">
+        </div>
+        <div class="hero-float-review">
+          <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <div class="rating">5.0</div>
+          <div class="label">21+ Google Reviews</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="sep"></span>Gentleman's Cut</span>
+    <span class="marquee-item"><span class="sep"></span>Beard Sculpting</span>
+    <span class="marquee-item"><span class="sep"></span>Hair Treatment</span>
+    <span class="marquee-item"><span class="sep"></span>Facial Services</span>
+    <span class="marquee-item"><span class="sep"></span>Hair Colouring</span>
+    <span class="marquee-item"><span class="sep"></span>Hot Towel Shave</span>
+    <span class="marquee-item"><span class="sep"></span>Junior Cuts</span>
+    <span class="marquee-item"><span class="sep"></span>Facial Waxing</span>
+    <span class="marquee-item"><span class="sep"></span>Gentleman's Cut</span>
+    <span class="marquee-item"><span class="sep"></span>Beard Sculpting</span>
+    <span class="marquee-item"><span class="sep"></span>Hair Treatment</span>
+    <span class="marquee-item"><span class="sep"></span>Facial Services</span>
+    <span class="marquee-item"><span class="sep"></span>Hair Colouring</span>
+    <span class="marquee-item"><span class="sep"></span>Hot Towel Shave</span>
+    <span class="marquee-item"><span class="sep"></span>Junior Cuts</span>
+    <span class="marquee-item"><span class="sep"></span>Facial Waxing</span>
+  </div>
+</div>
+
+<!-- ===================== OUR STORY ===================== -->
+<section class="section story-section" id="story">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-image-wrap gs">
+        <div class="story-image-main">
+          <img src="ace_of_fades/ace_of_fades_1.jpg" alt="Inside Ace of Fades">
+        </div>
+        <div class="story-image-badge"><i class="fas fa-award"></i> 100% Recommended</div>
+      </div>
+      <div class="story-text gs">
+        <span class="section-label">Our Story</span>
+        <h2 class="section-heading">More Than Just a <em>Barbershop</em></h2>
+        <div class="divider-line"></div>
+        <p class="section-desc">Ace of Fades has always been about more than hair. From the start, we wanted to create a space where style feels personal, service feels genuine, and every detail meets a high standard.</p>
+        <p class="section-desc" style="margin-top:0.8rem">We believe your grooming is an expression of individuality, and our role is to help you bring that expression to life with confidence.</p>
+        <div class="story-values" style="margin-top:1.5rem">
+          <div class="story-value"><i class="fas fa-check-circle"></i> Premium products only — no compromises</div>
+          <div class="story-value"><i class="fas fa-check-circle"></i> Experienced, certified barbers</div>
+          <div class="story-value"><i class="fas fa-check-circle"></i> Warm, relaxed & welcoming atmosphere</div>
+          <div class="story-value"><i class="fas fa-check-circle"></i> Walk-in or book ahead — flexible for you</div>
+        </div>
+        <div class="story-stats">
+          <div class="story-stat"><h3 data-count="3">0</h3><p>Locations</p></div>
+          <div class="story-stat"><h3 data-count="5.0" data-decimal>0</h3><p>Star Rating</p></div>
+          <div class="story-stat"><h3 data-count="8" data-suffix="+">0</h3><p>Services</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SERVICES ===================== -->
+<section class="section services-section" id="services">
+  <div class="container">
+    <span class="section-label gs">Our Services</span>
+    <h2 class="section-heading gs" style="margin-bottom:2.5rem">Full-Service <em>Grooming</em></h2>
+    <div class="services-layout">
+      <div class="services-tabs gs">
+        <button class="services-tab active" data-tab="hair">Hair</button>
+        <button class="services-tab" data-tab="beard">Beard</button>
+        <button class="services-tab" data-tab="treatment">Treatment</button>
+        <button class="services-tab" data-tab="face">Face & Body</button>
+        <button class="services-tab" data-tab="colour">Colour</button>
+        <button class="services-tab" data-tab="junior">Junior</button>
+      </div>
+      <div class="services-content gs">
+        <!-- HAIR -->
+        <div class="services-panel active" id="panel-hair">
+          <div class="services-panel-title">Hair</div>
+          <div class="service-row"><span class="service-name">Gentleman's Cut</span><span class="service-price"><span class="currency">RM</span> 35</span></div>
+          <div class="service-row"><span class="service-name">Buzz Cut</span><span class="service-price"><span class="currency">RM</span> 25</span></div>
+          <div class="service-row"><span class="service-name">Skin Fade</span><span class="service-price"><span class="currency">RM</span> 35</span></div>
+          <div class="service-row"><span class="service-name">Scissor Cut</span><span class="service-price"><span class="currency">RM</span> 40</span></div>
+          <div class="service-row"><span class="service-name">Cut & Shampoo Combo</span><span class="service-price"><span class="currency">RM</span> 50</span></div>
+          <div class="services-cta">
+            <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="btn btn-olive">Book Now</a>
+            <a href="#" class="btn btn-outline">All Hair Services &rarr;</a>
+          </div>
+        </div>
+        <!-- BEARD -->
+        <div class="services-panel" id="panel-beard">
+          <div class="services-panel-title">Beard</div>
+          <div class="service-row"><span class="service-name">Beard Shape & Trim</span><span class="service-price"><span class="currency">RM</span> 15</span></div>
+          <div class="service-row"><span class="service-name">Full Beard Sculpt</span><span class="service-price"><span class="currency">RM</span> 25</span></div>
+          <div class="service-row"><span class="service-name">Hot Towel Shave</span><span class="service-price"><span class="currency">RM</span> 25</span></div>
+          <div class="service-row"><span class="service-name">Straight Razor Finish</span><span class="service-price"><span class="currency">RM</span> 20</span></div>
+          <div class="services-cta">
+            <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="btn btn-olive">Book Now</a>
+            <a href="#" class="btn btn-outline">All Beard Services &rarr;</a>
+          </div>
+        </div>
+        <!-- TREATMENT -->
+        <div class="services-panel" id="panel-treatment">
+          <div class="services-panel-title">Treatment</div>
+          <div class="service-row"><span class="service-name">Scalp Treatment</span><span class="service-price"><span class="currency">RM</span> 45</span></div>
+          <div class="service-row"><span class="service-name">Hair Repair Treatment</span><span class="service-price"><span class="currency">RM</span> 55</span></div>
+          <div class="service-row"><span class="service-name">Deep Conditioning</span><span class="service-price"><span class="currency">RM</span> 75</span></div>
+          <div class="service-row"><span class="service-name">Shampoo Finish</span><span class="service-price"><span class="currency">RM</span> 15</span></div>
+          <div class="services-cta">
+            <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="btn btn-olive">Book Now</a>
+            <a href="#" class="btn btn-outline">All Treatments &rarr;</a>
+          </div>
+        </div>
+        <!-- FACE -->
+        <div class="services-panel" id="panel-face">
+          <div class="services-panel-title">Face &amp; Body</div>
+          <div class="service-row"><span class="service-name">Facial Waxing</span><span class="service-price"><span class="currency">RM</span> 10 – 30</span></div>
+          <div class="service-row"><span class="service-name">Deep Cleanse Facial</span><span class="service-price"><span class="currency">RM</span> 60</span></div>
+          <div class="service-row"><span class="service-name">Premium Facial</span><span class="service-price"><span class="currency">RM</span> 80</span></div>
+          <div class="service-row"><span class="service-name">Hot Towel Refresh</span><span class="service-price"><span class="currency">RM</span> 15</span></div>
+          <div class="services-cta">
+            <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="btn btn-olive">Book Now</a>
+            <a href="#" class="btn btn-outline">All Face &amp; Body &rarr;</a>
+          </div>
+        </div>
+        <!-- COLOUR -->
+        <div class="services-panel" id="panel-colour">
+          <div class="services-panel-title">Colour</div>
+          <div class="service-row"><span class="service-name">Basic Hair Colour</span><span class="service-price"><span class="currency">RM</span> 60</span></div>
+          <div class="service-row"><span class="service-name">Premium Colour</span><span class="service-price"><span class="currency">RM</span> 90</span></div>
+          <div class="service-row"><span class="service-name">Full Colour Treatment</span><span class="service-price"><span class="currency">RM</span> 130</span></div>
+          <div class="service-row"><span class="service-name">Beard Colour</span><span class="service-price"><span class="currency">RM</span> 30</span></div>
+          <div class="services-cta">
+            <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="btn btn-olive">Book Now</a>
+            <a href="#" class="btn btn-outline">All Colour Services &rarr;</a>
+          </div>
+        </div>
+        <!-- JUNIOR -->
+        <div class="services-panel" id="panel-junior">
+          <div class="services-panel-title">Junior</div>
+          <div class="service-row"><span class="service-name">Junior Cut (Under 12)</span><span class="service-price"><span class="currency">RM</span> 30</span></div>
+          <div class="service-row"><span class="service-name">Junior Buzz Cut</span><span class="service-price"><span class="currency">RM</span> 20</span></div>
+          <div class="service-row"><span class="service-name">Junior Cut & Wash</span><span class="service-price"><span class="currency">RM</span> 40</span></div>
+          <div class="services-cta">
+            <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="btn btn-olive">Book Now</a>
+          </div>
+        </div>
+        <div class="services-deco">&#x2702;</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MEET THE BARBERS ===================== -->
+<section class="section barbers-section" id="barbers">
+  <div class="container">
+    <div class="barbers-header">
+      <div>
+        <span class="section-label gs">Our Team</span>
+        <h2 class="section-heading gs">Meet the <em>Barbers</em></h2>
+      </div>
+      <a href="#" class="btn btn-outline gs">Our Team <i class="fas fa-arrow-right" style="font-size:0.6rem"></i></a>
+    </div>
+    <div class="barbers-grid">
+      <div class="barber-card gs">
+        <div class="barber-card-img">
+          <img src="ace_of_fades/barber_1.webp" alt="Amir">
+          <div class="barber-card-overlay"></div>
+        </div>
+        <div class="barber-card-body">
+          <h3>Amir</h3>
+          <div class="barber-card-role">The Style Master</div>
+          <span class="barber-card-exp"><i class="fas fa-scissors"></i> 12+ Years Exp.</span>
+          <p class="barber-card-desc">Amir brings over 12 years of precision craftsmanship to every chair. Specialising in classic gentleman's cuts and skin fades, he has a loyal following across both branches for his consistency and eye for detail.</p>
+        </div>
+      </div>
+      <div class="barber-card gs">
+        <div class="barber-card-img">
+          <img src="ace_of_fades/barber_2.webp" alt="Haziq">
+          <div class="barber-card-overlay"></div>
+        </div>
+        <div class="barber-card-body">
+          <h3>Haziq</h3>
+          <div class="barber-card-role">The Fade Master</div>
+          <span class="barber-card-exp"><i class="fas fa-scissors"></i> 9+ Years Exp.</span>
+          <p class="barber-card-desc">Known for his impeccable fades and beard sculpting, Haziq's technical precision and relaxed chair-side manner make every visit feel effortless. A true master of the taper and the blend.</p>
+        </div>
+      </div>
+      <div class="barber-card gs">
+        <div class="barber-card-img">
+          <img src="ace_of_fades/barber_3.webp" alt="Razif">
+          <div class="barber-card-overlay"></div>
+        </div>
+        <div class="barber-card-body">
+          <h3>Razif</h3>
+          <div class="barber-card-role">The Perfectionist</div>
+          <span class="barber-card-exp"><i class="fas fa-scissors"></i> 8+ Years Exp.</span>
+          <p class="barber-card-desc">Razif's meticulous attention to symmetry and structure sets his work apart. From scissor cuts to razor line-ups, he delivers clean, polished results every single time — no compromises.</p>
+        </div>
+      </div>
+      <div class="barber-card gs">
+        <div class="barber-card-img">
+          <img src="ace_of_fades/barber_4.webp" alt="Dani">
+          <div class="barber-card-overlay"></div>
+        </div>
+        <div class="barber-card-body">
+          <h3>Dani</h3>
+          <div class="barber-card-role">The Artist</div>
+          <span class="barber-card-exp"><i class="fas fa-scissors"></i> 7+ Years Exp.</span>
+          <p class="barber-card-desc">Dani treats every head of hair as a canvas. Skilled in hair colouring, creative cuts, and textured styles, he pushes the boundaries of modern barbering while keeping each look sharp and wearable.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GOOGLE REVIEWS ===================== -->
+<section class="section reviews-section" id="reviews">
+  <div class="container">
+    <div class="reviews-header-row">
+      <div>
+        <span class="section-label gs">Client Reviews</span>
+        <div class="reviews-big-title gs">Google<br>Reviews</div>
+      </div>
+      <div class="reviews-summary gs">
+        <div>
+          <div class="big-num">5.0</div>
+          <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        </div>
+        <div>
+          <div class="info">21+ reviews on <strong>Google</strong></div>
+          <a href="#" class="btn-arrow" style="font-size:0.68rem;margin-top:0.3rem">Review us on Google <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card gs">
+        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="text">Best barbershop experience I've had in KL. The atmosphere is super chill, barbers really know what they're doing. My go-to place every 3 weeks now!</p>
+        <div class="author">
+          <div class="avatar">A</div>
+          <div><div class="author-name">Ahmad R.</div><div class="author-sub">Regular Client</div></div>
+          <div class="platform"><i class="fab fa-google"></i></div>
+        </div>
+      </div>
+      <div class="review-card gs">
+        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="text">Came in for a haircut and stayed for the full treatment. The hot towel shave was absolutely incredible. Staff are super friendly and professional.</p>
+        <div class="author">
+          <div class="avatar">D</div>
+          <div><div class="author-name">Daniel K.</div><div class="author-sub">Verified Client</div></div>
+          <div class="platform"><i class="fab fa-google"></i></div>
+        </div>
+      </div>
+      <div class="review-card gs">
+        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="text">Brought my son here for his first proper haircut. The team was so patient with him and he absolutely loved it. Will definitely be back!</p>
+        <div class="author">
+          <div class="avatar">M</div>
+          <div><div class="author-name">Marcus T.</div><div class="author-sub">PJ Branch</div></div>
+          <div class="platform"><i class="fab fa-google"></i></div>
+        </div>
+      </div>
+      <div class="review-card gs">
+        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="text">The whole vibe is premium without being pretentious. Fair prices, quality products, and always leave looking fresh. Highly recommended!</p>
+        <div class="author">
+          <div class="avatar">R</div>
+          <div><div class="author-name">Reza M.</div><div class="author-sub">Subang Branch</div></div>
+          <div class="platform"><i class="fab fa-google"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GALLERY ===================== -->
+<section class="section gallery-section" id="gallery">
+  <div class="container">
+    <div class="gallery-header">
+      <div>
+        <span class="section-label gs">Follow Us</span>
+        <h2 class="section-heading gs">Our <span>Instagram</span></h2>
+      </div>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="btn btn-outline gs"><i class="fab fa-instagram" style="margin-right:4px"></i>@aceoffades.my</a>
+    </div>
+    <div class="gallery-grid">
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="gallery-item gs"><img src="ace_of_fades/ace_of_fades_1.jpg" alt="Ace of Fades" style="height:100%"><div class="gallery-overlay"><span><i class="fab fa-instagram" style="margin-right:4px"></i>View on Instagram</span></div></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="gallery-item gs"><img src="ace_of_fades/ace_of_fades_2.jpg" alt="Ace of Fades"><div class="gallery-overlay"><span><i class="fab fa-instagram" style="margin-right:4px"></i>View on Instagram</span></div></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="gallery-item gs"><img src="ace_of_fades/ace_of_fades_3.jpg" alt="Ace of Fades"><div class="gallery-overlay"><span><i class="fab fa-instagram" style="margin-right:4px"></i>View on Instagram</span></div></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="gallery-item gs"><img src="ace_of_fades/ace_of_fades_4.jpg" alt="Ace of Fades"><div class="gallery-overlay"><span><i class="fab fa-instagram" style="margin-right:4px"></i>View on Instagram</span></div></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="gallery-item gs"><img src="ace_of_fades/ace_of_fades_5.jpg" alt="Ace of Fades"><div class="gallery-overlay"><span><i class="fab fa-instagram" style="margin-right:4px"></i>View on Instagram</span></div></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="gallery-item gs"><img src="ace_of_fades/ace_of_fades_6.jpg" alt="Ace of Fades"><div class="gallery-overlay"><span><i class="fab fa-instagram" style="margin-right:4px"></i>View on Instagram</span></div></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="gallery-item gs"><img src="ace_of_fades/ace_of_fades_7.jpg" alt="Ace of Fades"><div class="gallery-overlay"><span><i class="fab fa-instagram" style="margin-right:4px"></i>View on Instagram</span></div></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="gallery-item gs"><img src="ace_of_fades/ace_of_fades_8.jpg" alt="Ace of Fades"><div class="gallery-overlay"><span><i class="fab fa-instagram" style="margin-right:4px"></i>View on Instagram</span></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOG ===================== -->
+<section class="section blog-section" id="blog">
+  <div class="container">
+    <div class="blog-header">
+      <div>
+        <span class="section-label gs">Latest Articles</span>
+        <h2 class="section-heading gs">From the <em>Blog</em></h2>
+      </div>
+      <a href="#" class="btn btn-outline gs">All Posts <i class="fas fa-arrow-right" style="font-size:0.6rem"></i></a>
+    </div>
+    <div class="blog-grid">
+      <article class="blog-card gs">
+        <div class="blog-card-img">
+          <img src="ace_of_fades/ace_of_fades_4.jpg" alt="Finding your signature look">
+          <span class="blog-card-tag">Style Guide</span>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-meta">
+            <span><i class="fas fa-calendar"></i> Apr 10, 2026</span>
+            <span><i class="fas fa-clock"></i> 5 min read</span>
+          </div>
+          <h3>How to Find Your Signature Haircut in 2026</h3>
+          <p>Your haircut says a lot about you. Here's how to work with your barber to discover a look that matches your lifestyle, face shape, and personal style.</p>
+          <a href="#" class="blog-card-link">Read Article <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </article>
+      <article class="blog-card gs">
+        <div class="blog-card-img">
+          <img src="ace_of_fades/ace_of_fades_5.jpg" alt="Beard care essentials">
+          <span class="blog-card-tag">Grooming</span>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-meta">
+            <span><i class="fas fa-calendar"></i> Apr 5, 2026</span>
+            <span><i class="fas fa-clock"></i> 4 min read</span>
+          </div>
+          <h3>The Complete Beard Care Guide for Malaysian Weather</h3>
+          <p>Malaysia's humidity can be tough on facial hair. Learn the essential products and techniques to keep your beard looking sharp all day in tropical heat.</p>
+          <a href="#" class="blog-card-link">Read Article <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </article>
+      <article class="blog-card gs">
+        <div class="blog-card-img">
+          <img src="ace_of_fades/ace_of_fades_6.jpg" alt="Scalp health matters">
+          <span class="blog-card-tag">Wellness</span>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-meta">
+            <span><i class="fas fa-calendar"></i> Mar 28, 2026</span>
+            <span><i class="fas fa-clock"></i> 6 min read</span>
+          </div>
+          <h3>Why Scalp Health Is the Foundation of Great Hair</h3>
+          <p>Most men focus on the hair itself but forget the scalp. Our barbers break down why a healthy scalp routine is the secret to better-looking hair.</p>
+          <a href="#" class="blog-card-link">Read Article <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LOCATIONS ===================== -->
+<section class="section locations-section" id="locations">
+  <div class="container">
+    <div class="locations-heading-wrap gs">
+      <span class="section-label">Find Us</span>
+      <div class="locations-heading-big">Find<br>Us</div>
+      <h2 class="section-heading" style="margin-top:-0.5rem">Our <em>Locations</em></h2>
+    </div>
+    <div class="locations-grid">
+      <div class="loc-card gs">
+        <iframe class="loc-card-map" src="https://maps.google.com/maps?q=3.1368782,101.5955329&output=embed&z=17" loading="lazy" allowfullscreen aria-label="Tropicana Avenue map"></iframe>
+        <div class="loc-card-body">
+          <div class="loc-status-badge"><span class="dot"></span> Open Now</div>
+          <h3>Tropicana Avenue</h3>
+          <p class="loc-address">Lot P-G-13A, Tropicana Avenue, No 12 Persiaran Tropicana, PJU 3, 47410 Petaling Jaya, Selangor</p>
+          <div class="loc-contact">
+            <div class="loc-contact-row"><i class="fas fa-phone"></i><strong>Phone:</strong>&nbsp;+60 17-657 7316</div>
+            <div class="loc-contact-row"><i class="fas fa-envelope"></i><strong>Email:</strong>&nbsp;aceoffades.ta@gmail.com</div>
+          </div>
+          <div class="loc-hours-row"><i class="fas fa-clock"></i> Open Daily: 10:00 AM – 9:00 PM</div>
+          <div class="loc-actions">
+            <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="loc-btn-book"><i class="fas fa-calendar"></i> Book Now</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=Ace+of+Fades+Tropicana+Avenue+Petaling+Jaya+Malaysia" target="_blank" rel="noopener noreferrer" class="loc-btn-dir"><i class="fas fa-map-location-dot"></i> Directions</a>
+          </div>
+        </div>
+      </div>
+      <div class="loc-card gs">
+        <iframe class="loc-card-map" src="https://maps.google.com/maps?q=Ace+of+Fades+Subang+Jaya+Selangor+Malaysia&output=embed&z=16" loading="lazy" allowfullscreen aria-label="Subang Jaya map"></iframe>
+        <div class="loc-card-body">
+          <div class="loc-status-badge"><span class="dot"></span> Open Now</div>
+          <h3>Subang Jaya</h3>
+          <p class="loc-address">Subang Jaya, Selangor, Malaysia</p>
+          <div class="loc-contact">
+            <div class="loc-contact-row"><i class="fas fa-phone"></i><strong>Phone:</strong>&nbsp;+60 17-657 7316</div>
+            <div class="loc-contact-row"><i class="fas fa-envelope"></i><strong>Email:</strong>&nbsp;aceoffades.ta@gmail.com</div>
+          </div>
+          <div class="loc-hours-row"><i class="fas fa-clock"></i> Open Daily: 10:00 AM – 9:00 PM</div>
+          <div class="loc-actions">
+            <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="loc-btn-book"><i class="fas fa-calendar"></i> Book Now</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=Ace+of+Fades+Subang+Jaya+Selangor+Malaysia" target="_blank" rel="noopener noreferrer" class="loc-btn-dir"><i class="fas fa-map-location-dot"></i> Directions</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA ===================== -->
+<section class="cta-section" id="book">
+  <div class="cta-deco">&#x2702;</div>
+  <div class="container">
+    <div class="cta-inner">
+      <div class="cta-text">
+        <span class="section-label gs">Ready?</span>
+        <h2 class="section-heading gs">Ready for the <em>experience?</em></h2>
+        <p class="section-desc gs">Walk in or book ahead — choose your branch, pick a time, and let our barbers handle the rest.</p>
+        <div class="cta-buttons gs">
+          <a href="tel:+60176577316" class="btn" style="background:rgba(255,255,255,0.08);color:#fff;border:1.5px solid rgba(255,255,255,0.2);">Call Us</a>
+          <a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" class="btn btn-olive">Book Now <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="cta-contact gs">
+          <a href="https://www.facebook.com/aceoffades.ta/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i> Facebook</a>
+          <a href="mailto:aceoffades.ta@gmail.com"><i class="fas fa-envelope"></i> aceoffades.ta@gmail.com</a>
+          <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> @aceoffades.my</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== INSTAGRAM FEED ===================== -->
+<section class="insta-section">
+  <div class="insta-header"><i class="fab fa-instagram"></i> See Our Instagram &nbsp;·&nbsp; <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">@aceoffades.my</a></div>
+  <div class="insta-track-outer">
+    <div class="insta-track">
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="insta-item"><img src="ace_of_fades/ace_of_fades_1.jpg" alt="Ace of Fades"></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="insta-item"><img src="ace_of_fades/ace_of_fades_2.jpg" alt="Ace of Fades"></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="insta-item"><img src="ace_of_fades/ace_of_fades_3.jpg" alt="Ace of Fades"></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="insta-item"><img src="ace_of_fades/ace_of_fades_4.jpg" alt="Ace of Fades"></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="insta-item"><img src="ace_of_fades/ace_of_fades_5.jpg" alt="Ace of Fades"></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="insta-item"><img src="ace_of_fades/ace_of_fades_6.jpg" alt="Ace of Fades"></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="insta-item"><img src="ace_of_fades/ace_of_fades_7.jpg" alt="Ace of Fades"></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="insta-item"><img src="ace_of_fades/ace_of_fades_8.jpg" alt="Ace of Fades"></a>
+      <!-- duplicate for seamless loop -->
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="insta-item"><img src="ace_of_fades/ace_of_fades_1.jpg" alt="Ace of Fades"></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="insta-item"><img src="ace_of_fades/ace_of_fades_2.jpg" alt="Ace of Fades"></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="insta-item"><img src="ace_of_fades/ace_of_fades_3.jpg" alt="Ace of Fades"></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="insta-item"><img src="ace_of_fades/ace_of_fades_4.jpg" alt="Ace of Fades"></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="insta-item"><img src="ace_of_fades/ace_of_fades_5.jpg" alt="Ace of Fades"></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="insta-item"><img src="ace_of_fades/ace_of_fades_6.jpg" alt="Ace of Fades"></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="insta-item"><img src="ace_of_fades/ace_of_fades_7.jpg" alt="Ace of Fades"></a>
+      <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" class="insta-item"><img src="ace_of_fades/ace_of_fades_8.jpg" alt="Ace of Fades"></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="ace_of_fades/ace_of_fades_logo.png" alt="Ace of Fades">
+          <span class="footer-logo-text">Ace of Fades</span>
+        </div>
+        <p>Premium grooming services for the modern gentleman. A sanctuary in PJ & Subang Jaya.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/aceoffades.my/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.facebook.com/aceoffades.ta/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.tiktok.com/@aceoffades.my" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="https://wa.me/60176577316" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-right">
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#story">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#barbers">Our Team</a></li>
+            <li><a href="#locations">Locations</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#blog">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#services">Gentleman's Cut</a></li>
+            <li><a href="#services">Shave & Shape</a></li>
+            <li><a href="#services">Hair Treatment</a></li>
+            <li><a href="#services">Facial Services</a></li>
+            <li><a href="#services">Hair Colouring</a></li>
+            <li><a href="#services">Junior Cut</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <div class="footer-contact-row"><i class="fas fa-map-marker-alt"></i><span>P-G-13A, Tropicana Avenue, PJ</span></div>
+          <div class="footer-contact-row"><i class="fas fa-phone"></i><span>+60 17-657 7316</span></div>
+          <div class="footer-contact-row"><i class="fas fa-envelope"></i><a href="mailto:aceoffades.ta@gmail.com" style="color:inherit;transition:color 0.3s" onmouseover="this.style.color='var(--olive)'" onmouseout="this.style.color=''">aceoffades.ta@gmail.com</a></div>
+          <div class="footer-contact-row"><i class="fas fa-globe"></i><a href="https://cdn.marketing123.123formbuilder.com/wp-content/uploads/2023/05/barbershop-appointment-form.jpg" target="_blank" rel="noopener noreferrer" style="color:inherit;transition:color 0.3s" onmouseover="this.style.color='var(--olive)'" onmouseout="this.style.color=''">aceoffades.my</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Ace of Fades MY. All rights reserved.</span>
+      <span>Crafted for the modern gentleman</span>
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button class="back-top" id="backTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+<!-- WHATSAPP CHATBOT -->
+<div class="wa-widget" id="waWidget">
+  <div class="wa-popup" id="waPopup">
+    <div class="wa-popup-header">
+      <div class="wa-popup-avatar">
+        <img src="ace_of_fades/ace_of_fades_logo.png" alt="Ace of Fades">
+      </div>
+      <div class="wa-popup-info">
+        <h5>Ace of Fades</h5>
+        <div class="wa-popup-online">Online now</div>
+      </div>
+      <button class="wa-popup-close" id="waClose" aria-label="Close chat"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="wa-popup-body" id="waBody">
+      <div class="wa-msg">
+        Hi there! 👋 Welcome to <strong>Ace of Fades</strong>.<br><br>How can we help you today?
+        <div class="wa-msg-time">Just now <i class="fas fa-check-double"></i></div>
+      </div>
+      <div class="wa-typing" id="waTyping">
+        <div class="wa-dots"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <div class="wa-popup-footer">
+      <div class="wa-input-row">
+        <input class="wa-input" id="waInput" type="text" placeholder="Type a message..." autocomplete="off" maxlength="200">
+        <button class="wa-input-send" id="waInputSend" aria-label="Send message"><i class="fas fa-paper-plane"></i></button>
+      </div>
+      <a href="https://wa.me/60176577316?text=Hi%20Ace%20of%20Fades%2C%20I%20would%20like%20to%20enquire%20about%20your%20services." target="_blank" rel="noopener noreferrer" class="wa-send-btn">
+        <i class="fab fa-whatsapp"></i> Continue on WhatsApp
+      </a>
+    </div>
+  </div>
+  <button class="wa-btn-float" id="waBtn" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span class="wa-pulse-dot"></span>
+  </button>
+</div>
+
+<script>
+/* ---- Loader ---- */
+window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('loader').classList.add('done'),1200)});
+
+/* ---- Nav + Top Strip scroll ---- */
+const topStrip=document.getElementById('topStrip');
+window.addEventListener('scroll',()=>{
+  const s=scrollY>50;
+  document.getElementById('nav').style.top='46px';
+  document.getElementById('backTop').classList.toggle('show',scrollY>500);
+});
+
+/* ---- WhatsApp Chatbot ---- */
+const waBtn=document.getElementById('waBtn');
+const waPopup=document.getElementById('waPopup');
+const waClose=document.getElementById('waClose');
+const waTyping=document.getElementById('waTyping');
+const waBody=document.getElementById('waBody');
+
+let waOpened=false;
+function openWaPopup(){
+  waPopup.classList.add('open');
+  if(!waOpened){
+    waOpened=true;
+    setTimeout(()=>{
+      waTyping.classList.add('show');
+      waBody.scrollTop=waBody.scrollHeight;
+    },800);
+    setTimeout(()=>{
+      waTyping.classList.remove('show');
+      const msg=document.createElement('div');
+      msg.className='wa-msg';
+      msg.innerHTML='We offer: Gentleman\'s Cut, Fades, Beard Sculpting, Treatments & more.<br><br>Tap below to book or ask us anything! 💈';
+      msg.innerHTML+='<div class="wa-msg-time">Just now <i class="fas fa-check-double"></i></div>';
+      waBody.insertBefore(msg,waTyping);
+      waBody.scrollTop=waBody.scrollHeight;
+    },2200);
+  }
+}
+if(waBtn){
+  waBtn.addEventListener('click',(e)=>{
+    e.stopPropagation();
+    if(waPopup.classList.contains('open')){
+      waPopup.classList.remove('open');
+    }else{
+      openWaPopup();
+    }
+  });
+}
+if(waClose){
+  waClose.addEventListener('click',(e)=>{
+    e.stopPropagation();
+    waPopup.classList.remove('open');
+  });
+}
+document.addEventListener('click',(e)=>{
+  if(!e.target.closest('#waWidget')) waPopup.classList.remove('open');
+});
+/* Auto-open after 4s on first visit */
+setTimeout(()=>{
+  if(!waOpened&&!waPopup.classList.contains('open')) openWaPopup();
+},4000);
+
+/* ---- WA Chat Input ---- */
+const waInput=document.getElementById('waInput');
+const waInputSend=document.getElementById('waInputSend');
+const WA_REPLIES=[
+  'Thanks for reaching out! We\'ll be happy to assist you. 😊',
+  'Great question! Please visit us at Tropicana Ave or Subang Jaya — walk-ins welcome!',
+  'You can also book online at aceoffades.my for your preferred time slot. 📅',
+  'Our barbers are available daily from 10 AM – 9 PM. See you soon! ✂️',
+  'For more details, tap the button below to chat with us directly on WhatsApp!'
+];
+let waReplyIdx=0;
+function sendWaMessage(){
+  const text=(waInput.value||'').trim();
+  if(!text) return;
+  // Add user message
+  const userMsg=document.createElement('div');
+  userMsg.className='wa-user-msg';
+  userMsg.innerHTML=text+'<div class="wa-user-msg-time">Just now <i class="fas fa-check-double"></i></div>';
+  waBody.insertBefore(userMsg,waTyping);
+  waInput.value='';
+  waBody.scrollTop=waBody.scrollHeight;
+  // Typing indicator
+  waTyping.classList.add('show');
+  waBody.scrollTop=waBody.scrollHeight;
+  setTimeout(()=>{
+    waTyping.classList.remove('show');
+    const reply=document.createElement('div');
+    reply.className='wa-msg';
+    reply.innerHTML=WA_REPLIES[waReplyIdx%WA_REPLIES.length]+'<div class="wa-msg-time">Just now <i class="fas fa-check-double"></i></div>';
+    waBody.insertBefore(reply,waTyping);
+    waReplyIdx++;
+    waBody.scrollTop=waBody.scrollHeight;
+  },1400);
+}
+if(waInputSend) waInputSend.addEventListener('click',sendWaMessage);
+if(waInput) waInput.addEventListener('keydown',(e)=>{ if(e.key==='Enter') sendWaMessage(); });
+
+/* ---- Mobile nav ---- */
+const toggle=document.getElementById('navToggle'),mob=document.getElementById('navMobile');
+toggle.addEventListener('click',()=>{
+  toggle.classList.toggle('active');mob.classList.toggle('active');
+  document.body.style.overflow=mob.classList.contains('active')?'hidden':'';
+});
+function closeMobile(){toggle.classList.remove('active');mob.classList.remove('active');document.body.style.overflow=''}
+
+/* ---- Back to top ---- */
+document.getElementById('backTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+/* ---- Service Tabs ---- */
+document.querySelectorAll('.services-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.services-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.services-panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-'+tab.dataset.tab).classList.add('active');
+  });
+});
+
+/* ============================================================
+   GSAP — Scroll Animations
+   Elements zoom from miniature (scale 0.78) when scrolling
+   into view, and minimize back when scrolling away.
+   Content shifts horizontally on scroll.
+   ============================================================ */
+gsap.registerPlugin(ScrollTrigger);
+
+/* --- Core zoom reveal (bidirectional) --- */
+function zoomReveal(selector, fromVars, stagger){
+  gsap.utils.toArray(selector).forEach((el,i)=>{
+    gsap.fromTo(el,
+      {opacity:0, scale:0.72, y:50, ...fromVars},
+      {
+        opacity:1, scale:1, y:0, x:0,
+        duration:0.85,
+        delay:(stagger||0)*(i%4),
+        ease:'back.out(1.4)',
+        scrollTrigger:{
+          trigger:el,
+          start:'top 88%',
+          end:'bottom 12%',
+          toggleActions:'play reverse play reverse'
+        }
+      }
+    );
+  });
+}
+
+/* Story section */
+zoomReveal('.story-section .gs', {y:60, scale:0.75}, 0.12);
+
+/* Services */
+zoomReveal('.services-section .gs', {y:40, scale:0.8}, 0.08);
+
+/* Barbers */
+zoomReveal('.barbers-section .section-label.gs, .barbers-section .section-heading.gs', {y:30, scale:0.85}, 0.06);
+zoomReveal('.barber-card.gs', {y:60, scale:0.68}, 0.1);
+
+/* Reviews */
+zoomReveal('.reviews-section .gs', {y:35, scale:0.82}, 0.08);
+zoomReveal('.review-card.gs', {y:50, scale:0.72}, 0.09);
+
+/* Gallery */
+zoomReveal('.gallery-section .gs', {scale:0.7, y:30}, 0.08);
+
+/* Blog */
+zoomReveal('.blog-section .section-label.gs, .blog-section .section-heading.gs', {y:30, scale:0.85}, 0.06);
+zoomReveal('.blog-card.gs', {y:55, scale:0.7}, 0.12);
+
+/* Locations */
+zoomReveal('.locations-section .gs', {y:40, scale:0.78}, 0.1);
+
+/* CTA */
+zoomReveal('.cta-section .gs', {y:35, scale:0.82}, 0.08);
+
+/* --- Content horizontal shift on scroll --- */
+gsap.utils.toArray('.story-image-wrap, .hero-image').forEach(el=>{
+  gsap.fromTo(el,
+    {x: -40},
+    {
+      x: 0,
+      ease:'none',
+      scrollTrigger:{
+        trigger:el,
+        start:'top bottom',
+        end:'bottom top',
+        scrub:1.5
+      }
+    }
+  );
+});
+
+gsap.utils.toArray('.story-text, .services-content').forEach(el=>{
+  gsap.fromTo(el,
+    {x: 40},
+    {
+      x: 0,
+      ease:'none',
+      scrollTrigger:{
+        trigger:el,
+        start:'top bottom',
+        end:'bottom top',
+        scrub:1.5
+      }
+    }
+  );
+});
+
+/* --- Parallax shift for hero image --- */
+gsap.to('.hero-image-main img',{
+  scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1.2},
+  y:80,ease:'none'
+});
+
+/* --- Blog cards stagger shift --- */
+gsap.utils.toArray('.blog-card').forEach((card,i)=>{
+  gsap.fromTo(card,
+    {y: 30 + (i * 15)},
+    {
+      y: -(i * 10),
+      ease:'none',
+      scrollTrigger:{
+        trigger:'.blog-grid',
+        start:'top bottom',
+        end:'bottom top',
+        scrub:1.8
+      }
+    }
+  );
+});
+
+/* --- Gallery items parallax shift --- */
+gsap.utils.toArray('.gallery-item').forEach((item,i)=>{
+  gsap.fromTo(item,
+    {y: 20 + (i * 8)},
+    {
+      y: -(i * 6),
+      ease:'none',
+      scrollTrigger:{
+        trigger:'.gallery-grid',
+        start:'top bottom',
+        end:'bottom top',
+        scrub:2
+      }
+    }
+  );
+});
+
+/* --- Barber cards horizontal drift --- */
+gsap.utils.toArray('.barber-card').forEach((card,i)=>{
+  const dir = i % 2 === 0 ? -20 : 20;
+  gsap.fromTo(card,
+    {x: dir},
+    {
+      x: 0,
+      ease:'none',
+      scrollTrigger:{
+        trigger:'.barbers-grid',
+        start:'top bottom',
+        end:'bottom top',
+        scrub:2
+      }
+    }
+  );
+});
+
+/* --- Large heading parallax (locations big title) --- */
+gsap.to('.locations-heading-big',{
+  scrollTrigger:{trigger:'.locations-section',start:'top bottom',end:'bottom top',scrub:2},
+  x:60,ease:'none'
+});
+
+/* --- Review big title shift --- */
+gsap.to('.reviews-big-title',{
+  scrollTrigger:{trigger:'.reviews-section',start:'top bottom',end:'bottom top',scrub:2},
+  x:40,ease:'none'
+});
+
+/* --- Service panel title subtle rise --- */
+gsap.to('.services-panel-title',{
+  scrollTrigger:{trigger:'.services-section',start:'top bottom',end:'bottom top',scrub:1.5},
+  y:-20,ease:'none'
+});
+
+/* ---- Animated counters ---- */
+document.querySelectorAll('[data-count]').forEach(el=>{
+  const t=parseFloat(el.dataset.count),
+        dec=el.hasAttribute('data-decimal'),
+        suf=el.dataset.suffix||'',
+        obj={v:0};
+  gsap.to(obj,{v:t,duration:2,ease:'power2.out',
+    scrollTrigger:{trigger:el,start:'top 85%',toggleActions:'play none none none'},
+    onUpdate:()=>{el.textContent=(dec?obj.v.toFixed(1):Math.round(obj.v))+suf}
+  });
+});
+
+/* ---- Marquee speed boost on scroll ---- */
+const marqueeTrack = document.querySelector('.marquee-track');
+if(marqueeTrack){
+  ScrollTrigger.create({
+    trigger:'.marquee',
+    start:'top bottom',
+    end:'bottom top',
+    onUpdate:(self)=>{
+      const v=self.getVelocity();
+      const speed=Math.max(8,Math.min(40,25-Math.abs(v)/200));
+      marqueeTrack.style.animationDuration=speed+'s';
+      clearTimeout(marqueeTrack._resetTimeout);
+      marqueeTrack._resetTimeout=setTimeout(()=>{marqueeTrack.style.animationDuration='25s'},600);
+    }
+  });
+}
+</script>
+</body>
+</html>
